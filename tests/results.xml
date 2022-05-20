@@ -1,6 +1,8 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1649888892" />
-    <testcase name="write_and_read" classname="test_axi_responder" file="/home/cichian/axi_pmesh/tests/test_axi_responder.py" lineno="84" time="0.01421356201171875" sim_time_ns="480.001" ratio_time="33770.63396242619" />
+    <property name="random_seed" value="1653010169" />
+    <testcase name="write_and_read" classname="test_axi_responder" file="/home/cichian/axi_pmesh/tests/test_axi_responder.py" lineno="85" time="0.01491689682006836" sim_time_ns="560.001" ratio_time="37541.387243934405">
+      <failure />
+    </testcase>
   </testsuite>
 </testsuites>

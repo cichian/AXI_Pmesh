@@ -1,0 +1,7736 @@
+// Copyright (c) 2015 Princeton University
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of Princeton University nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//==================================================================================================
+//  Filename      : define.h
+//  Created On    : 2014-02-20
+//  Last Modified : 2018-11-16 17:14:11
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : main header file defining global architecture parameters
+//
+//
+//==================================================================================================
+
+
+
+
+// Uncomment to define USE_GENERIC_SRAM_IMPLEMENTATION to use the old unsynthesizable BRAM
+// `define USE_GENERIC_SRAM_IMPLEMENTATION
+
+
+
+
+/*
+Copyright (c) 2015 Princeton University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Princeton University nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+// 63         50 49      42 41      34 33           30 29      22 21                 0   
+// ------------------------------------------------------------------------------------
+// |            |          |          |               |          |                    |
+// |  Chip ID   |  Dest X  |  Dest Y  |  Final Route  |  Length  |    Header Payload  | 
+// |            |          |          |               |          |                    |
+// ------------------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+ //whether the routing is based on chipid or x y position
+ //`define    ROUTING_CHIP_ID
+ 
+
+ //defines for different topology, only one should be active
+ //`define    NETWORK_TOPO_2D_MESH
+ //`define    NETWORK_TOPO_3D_MESH
+ 
+
+// Tile config
+
+// /home/jbalkind/Documents/openpiton/piton/verif/env/manycore/devices_ariane.xml
+
+
+
+
+
+// NoC interface
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NodeID decomposition
+
+
+
+
+
+
+
+
+//========================
+//Packet format
+//=========================
+
+//Header decomposition
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// these shifted fields are added for convienience
+// HEADER 2
+
+
+
+
+
+
+
+
+// HEADER 3
+
+
+
+
+
+
+
+
+//NoC header information
+
+
+
+
+
+
+
+
+
+
+// Width of MSG_ADDR field - you're probably looking for PHY_ADDR_WIDTH
+
+
+//Coherence information
+
+
+
+
+
+//Requests from L15 to L2
+// Should always make #0 an error
+
+
+
+
+
+
+
+
+//condition satisfied
+
+//condition not satisfied
+
+//Both SWAP and LDSTUB are the same for L2
+
+
+
+
+
+
+
+
+
+//RISC-V AMO requests
+
+
+
+
+
+
+
+
+
+//RISC-V AMO L2-internal phase 1
+
+
+
+
+
+
+
+
+
+//RISC-V AMO L2-internal phase 2
+
+
+
+
+
+
+
+
+
+
+
+
+//Forward requests from L2 to L15
+
+
+
+
+
+
+
+//Memory requests from L2 to DRAM
+
+
+
+
+
+
+//Forward acks from L15 to L2
+
+
+
+
+
+
+
+//Memory acks from memory to L2
+
+
+
+
+
+
+
+
+
+//Acks from L2 to L15
+
+
+//TODO
+
+
+
+//Only exist within L2
+
+
+
+
+
+//`define MSG_TYPE_LOAD_REQ           8'd31 if this is enabled, don't use 31
+
+
+
+
+
+// These should be defined in l2.vh, not the global defines
+
+
+
+
+
+
+
+
+
+
+
+//Physical address
+
+
+
+
+
+
+
+
+
+
+//Transition data size
+
+
+
+
+
+
+
+
+
+
+
+//`define DMBR_TAG_WIDTH 4
+
+//Clumpy Shared Memory
+
+
+
+
+
+
+////////////////////////////////////////////
+// SOME CONFIGURATION REGISTERS DEFINES
+////////////////////////////////////////////
+// example: read/write to csm_en would be 0xba_0000_0100
+
+// `define ASI_ADDRESS_MASK    `L15_ADDR_TYPE
+// `define CONFIG_ASI_ADDRESS  `L15_ADDR_TYPE_WIDTH'hba
+
+
+
+
+
+
+
+
+
+
+// DMBR Config register 1 fields
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DMBR Config register 2 fields
+
+
+
+//Home allocation method
+
+
+
+
+
+
+//Additional fields for Sharer Domain ID and Logical Sharer ID
+//For coherence domain restriction only
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//`define TTE_CSM_WIDTH           64
+//`define TTE_CSM                 63:0
+//`define TTE_CSM_VALID           63
+//`define TTE_CSM_SZL             62:61
+//`define TTE_CSM_NFO             60
+//`define TTE_CSM_IE              59
+//`define TTE_CSM_SOFT2           58:49
+//`define TTE_CSM_SZH             48
+//`define TTE_CSM_DIAG            47:40
+//`define TTE_CSM_RES1            39
+//`define TTE_CSM_SDID            38:29
+//`define TTE_CSM_HDID            28:19
+//`define TTE_CSM_LSID            18:13
+//`define TTE_CSM_SOFT            12:8
+//`define TTE_CSM_RES2            7
+//`define TTE_CSM_LOCK            6
+//`define TTE_CSM_CP              5
+//`define TTE_CSM_CV              4
+//`define TTE_CSM_E               3
+//`define TTE_CSM_P               2
+//`define TTE_CSM_W               1
+//`define TTE_CSM_RES3            0
+
+
+
+
+
+
+
+//`define HOME_ID_X_POS_WIDTH         3
+//`define HOME_ID_X_POS               2:0
+//`define HOME_ID_Y_POS_WIDTH         3
+//`define HOME_ID_Y_POS               5:3
+
+// Packet format for home id
+
+
+
+
+
+/////////////////////////////////////
+// BIST
+/////////////////////////////////////
+
+// the data width from tap to individual sram wrappers
+
+
+
+//deprecated
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////
+// IDs for JTAG-Core interface
+/////////////////////////////////////
+
+// 48b for writing the PC reset vector
+
+// 94b for reading the sscan data
+
+
+
+
+
+
+
+
+
+
+
+// Execution Drafting Synchronization Method Values
+
+
+
+
+
+// Execution Drafting timeout counter bit width
+
+
+// Configuration registers
+
+
+
+
+
+
+
+
+
+
+
+
+// Execution Drafting configuration register bit positions
+
+
+
+
+
+
+
+
+// Execution Drafting configuration register default values
+// ED disabled, STSM sync method, LFSR seed = 16'b0, LFSR load = 1'b0,
+// Counter Timeout = 16'd32
+
+
+
+//Clumpy sharer memory configuration registers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module axilite_noc_bridge #(
+    parameter AXI_LITE_DATA_WIDTH = 64
+) (
+    input  wire                                   clk,
+    input  wire                                   rst,
+
+    input wire                                    noc2_valid_in,
+    input wire [64-1:0]              noc2_data_in,
+    output                                        noc2_ready_out,
+
+    output  					                  noc2_valid_out,
+    output [64-1:0] 		          noc2_data_out,
+    input wire 					                  noc2_ready_in,
+   
+    input wire 					                  noc3_valid_in,
+    input wire [64-1:0] 		      noc3_data_in,
+    output       				                  noc3_ready_out,
+
+    output   					                  noc3_valid_out,
+    output [64-1:0]     		      noc3_data_out,
+    input wire      			                  noc3_ready_in,
+
+    input wire [14-1:0]        src_chipid,
+    input wire [8-1:0]             src_xpos,
+    input wire [8-1:0]             src_ypos,
+    input wire [4-1:0]         src_fbits,
+
+    input wire [14-1:0]        dest_chipid,
+    input wire [8-1:0]             dest_xpos,
+    input wire [8-1:0]             dest_ypos,
+    input wire [4-1:0]         dest_fbits,
+
+    // AXI Write Address Channel Signals
+    input  wire  [64-1:0]   m_axi_awaddr,
+    input  wire                                   m_axi_awvalid,
+    output wire                                   m_axi_awready,
+
+    // AXI Write Data Channel Signals
+    input  wire  [AXI_LITE_DATA_WIDTH-1:0]        m_axi_wdata,
+    input  wire  [AXI_LITE_DATA_WIDTH/8-1:0]      m_axi_wstrb,
+    input  wire                                   m_axi_wvalid,
+    output wire                                   m_axi_wready,
+
+    // AXI Read Address Channel Signals
+    input  wire  [64-1:0]   m_axi_araddr,
+    input  wire                                   m_axi_arvalid,
+    output wire                                   m_axi_arready,
+
+    // AXI Read Data Channel Signals
+    output  reg [AXI_LITE_DATA_WIDTH-1:0]         m_axi_rdata,
+    output  reg [2-1:0]    m_axi_rresp,
+    output  reg                                   m_axi_rvalid,
+    input  wire                                   m_axi_rready,
+
+    // AXI Write Response Channel Signals
+    output  reg [2-1:0]    m_axi_bresp,
+    output  reg                                   m_axi_bvalid,
+    input  wire                                   m_axi_bready
+);
+
+// States for Incoming Piton Messages
+
+
+
+
+
+
+
+
+
+
+/* flit fields */
+reg [64-1:0]               msg_address;
+reg [8-1:0]             msg_length;
+reg [8-1:0]               msg_type;
+reg [8-1:0]             msg_mshrid;
+reg [5:0]                    msg_options_1;
+reg [15:0]                   msg_options_2;
+reg [29:0]                   msg_options_3;
+reg [5:0]                    msg_options_4;
+
+reg [8-1:0]             axi2noc_msg_counter;
+wire                                    axi2noc_msg_type_store;
+wire                                    axi2noc_msg_type_load;
+wire [1:0]                              axi2noc_msg_type;
+wire                                    axi_valid_ready;
+reg [2:0]                               flit_state;
+reg [2:0]                               flit_state_next;
+reg                                     flit_ready;
+reg [64-1:0]               flit;
+reg [64-1:0]               noc_data;
+
+wire                                    type_fifo_wval;
+wire                                    type_fifo_full;
+wire [1:0]                              type_fifo_wdata;
+wire                                    type_fifo_empty;
+wire [1:0]                              type_fifo_out;
+reg                                     type_fifo_ren;
+
+wire                                    awaddr_fifo_wval;
+wire                                    awaddr_fifo_full;
+wire [64-1:0]     awaddr_fifo_wdata;
+wire                                    awaddr_fifo_empty;
+wire [64-1:0]     awaddr_fifo_out;
+reg                                     awaddr_fifo_ren;
+
+wire                                    wdata_fifo_wval;
+wire                                    wdata_fifo_full;
+wire [64-1:0]     wdata_fifo_wdata;
+wire                                    wdata_fifo_empty;
+wire [64-1:0]     wdata_fifo_out;
+reg                                     wdata_fifo_ren;
+
+wire                                    araddr_fifo_wval;
+wire                                    araddr_fifo_full;
+wire [64-1:0]     araddr_fifo_wdata;
+wire                                    araddr_fifo_empty;
+wire [64-1:0]     araddr_fifo_out;
+reg                                     araddr_fifo_ren;
+
+
+/* Dump store addr and data to file. */
+integer file;
+initial begin
+    file = $fopen("axilite_noc.log", "w");
+end
+
+always @(posedge clk)
+begin
+    if (awaddr_fifo_ren)
+    begin
+        $fwrite(file, "awaddr-fifo %064x\n", awaddr_fifo_out);
+        $fflush(file);
+    end
+    if (wdata_fifo_ren)
+    begin
+        $fwrite(file, "wdata-fifo %064x\n", wdata_fifo_out);
+        $fflush(file);
+    end
+    if (araddr_fifo_ren)
+    begin
+        $fwrite(file, "araddr-fifo %064x\n", araddr_fifo_out);
+        $fflush(file);
+    end
+    /*if (noc2_valid_out && noc2_ready_in) begin
+        $fwrite(file, "bridge-write-data %064x\n", noc2_data_out);
+        $fflush(file);
+    end */
+end
+
+/* Dump store addr and data to file. */
+integer file3;
+initial begin
+    file3 = $fopen("axilite_noc2_store.log", "w");
+end
+always @(posedge clk)
+begin
+    if ((type_fifo_out == 2'd2) && noc2_valid_out && noc2_ready_in)
+    begin
+        $fwrite(file3, "noc2_data_out %064x\n", noc2_data_out);
+        $fflush(file3);
+    end
+end
+
+/* Dump store addr and data to file. */
+integer file2;
+initial begin
+    file2 = $fopen("axilite_noc3_load.log", "w");
+end
+always @(posedge clk)
+begin
+    if ((type_fifo_out == 2'd1) && noc3_valid_in && noc3_ready_out)
+    begin
+        $fwrite(file2, "noc3_data_in %064x\n", noc3_data_in);
+        $fflush(file2);
+    end
+end
+
+/* Dump axi read data to file. */
+integer file4;
+initial begin
+    file4 = $fopen("axilite_read_data.log", "w");
+end
+always @(posedge clk)
+begin
+    if (m_axi_rvalid && m_axi_rready)
+    begin
+        $fwrite(file4, "rdata %x\n", m_axi_rdata);
+        $fflush(file4);
+    end
+end
+
+/******** Where the magic happens ********/
+noc_response_axilite #(
+    .AXI_LITE_DATA_WIDTH(AXI_LITE_DATA_WIDTH)
+) noc_response_axilite(
+    .clk(clk),
+    .rst(rst),
+    .noc_valid_in(noc3_valid_in),
+    .noc_data_in(noc3_data_in),
+    .noc_ready_out(noc3_ready_out),
+    .noc_valid_out(),
+    .noc_data_out(),
+    .noc_ready_in(1'b1),
+    .m_axi_rdata(m_axi_rdata),
+    .m_axi_rresp(m_axi_rresp),
+    .m_axi_rvalid(m_axi_rvalid),
+    .m_axi_rready(m_axi_rready),
+    .m_axi_bresp(m_axi_bresp),
+    .m_axi_bvalid(m_axi_bvalid),
+    .m_axi_bready(m_axi_bready),
+    .w_reqbuf_size(),
+    .r_reqbuf_size()
+);
+
+
+assign noc3_ready_out = 1'b1;
+
+//assign write_channel_ready = !awaddr_fifo_full && !wdata_fifo_full;
+assign write_channel_ready = !awaddr_fifo_full && !wdata_fifo_full && !wstrb_fifo_full;
+assign m_axi_awready = write_channel_ready && !type_fifo_full;
+assign m_axi_wready = write_channel_ready && !type_fifo_full;
+assign m_axi_arready = !araddr_fifo_full && !type_fifo_full;
+
+assign axi2noc_msg_type_store = m_axi_awvalid && m_axi_wvalid;
+assign axi2noc_msg_type_load = m_axi_arvalid;
+assign axi2noc_msg_type = (axi2noc_msg_type_store) ? 2'd2 :
+                            (axi2noc_msg_type_load) ? 2'd1 :
+                                                        2'd0;
+
+/* fifo for storing packet type */
+sync_fifo #(
+	.DSIZE(2),
+	.ASIZE(5),
+	.MEMSIZE(16) // should be 2 ^ (ASIZE-1)
+) type_fifo (
+	.rdata(type_fifo_out),
+	.empty(type_fifo_empty),
+	.clk(clk),
+	.ren(type_fifo_ren),
+	.wdata(type_fifo_wdata),
+	.full(type_fifo_full),
+	.wval(type_fifo_wval),
+	.reset(rst)
+);
+
+assign type_fifo_wval = (axi2noc_msg_type_store ||axi2noc_msg_type_load) && !type_fifo_full;
+assign type_fifo_wdata = (axi2noc_msg_type_store) ? 2'd2 :
+                            (axi2noc_msg_type_load) ? 2'd1 : 2'd0;
+//assign type_fifo_ren = (flit_state == `MSG_STATE_INVALID) && !type_fifo_empty;
+// benefits of using XOR?
+//assign type_fifo_ren = (noc_store_done ^ noc_load_done) && !type_fifo_empty;
+assign type_fifo_ren = (noc_store_done ^ noc_load_done) && !type_fifo_empty;
+
+
+/* fifo for storing addresses */
+sync_fifo #(
+	.DSIZE(64),
+	.ASIZE(5),
+	.MEMSIZE(16) // should be 2 ^ (ASIZE-1)
+) awaddr_fifo (
+	.rdata(awaddr_fifo_out),
+	.empty(awaddr_fifo_empty),
+	.clk(clk),
+	.ren(awaddr_fifo_ren),
+	.wdata(awaddr_fifo_wdata),
+	.full(awaddr_fifo_full),
+	.wval(awaddr_fifo_wval),
+	.reset(rst)
+);
+
+assign awaddr_fifo_wval = m_axi_awvalid && m_axi_awready; //write_channel_ready;// && noc2_ready_in;
+assign awaddr_fifo_wdata = m_axi_awaddr;
+//assign awaddr_fifo_ren = (noc_store_done && !awaddr_fifo_empty); // noc_last_data only occurs for stores
+assign awaddr_fifo_ren = (noc_store_done && !awaddr_fifo_empty);
+
+
+/* fifo for wdata */
+sync_fifo #(
+	.DSIZE(64),
+	.ASIZE(5),
+	.MEMSIZE(16) // should be 2 ^ (ASIZE-1)    
+) waddr_fifo (
+	.rdata(wdata_fifo_out),
+	.empty(wdata_fifo_empty),
+	.clk(clk),
+	.ren(wdata_fifo_ren),
+	.wdata(wdata_fifo_wdata),
+	.full(wdata_fifo_full),
+	.wval(wdata_fifo_wval),
+	.reset(rst)
+);
+
+assign wdata_fifo_wval = m_axi_wvalid && m_axi_wready; // write_channel_ready;// && noc2_ready_in;
+assign wdata_fifo_wdata = m_axi_wdata;
+//assign wdata_fifo_ren = (noc_store_done && !wdata_fifo_empty); // noc_last_data only occurs for stores
+assign wdata_fifo_ren = (noc_store_done && !wdata_fifo_empty);
+
+
+
+/****************/ 
+// declaration for strobe to mask conversion 
+
+// FIFO IO
+wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] wstrb_fifo_out;
+wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] fifo_out_mux;
+wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] wstrb_fifo_wdata; 
+
+wire wstrb_fifo_full;
+wire wstrb_fifo_empty;
+
+wire wstrb_fifo_ren;
+wire wstrb_fifo_wval;
+
+// control intreface signal
+wire [7:0] pmesh_mask;
+wire split;
+
+// input side 
+wire wstrb_fifoside_valid;
+wire wstrb_fifoside_ready;
+
+// output side 
+wire wstrb_outputside_valid;
+wire wstrb_outputside_ready;
+
+localparam IDLE = 0;
+localparam VALID = 1;
+localparam WAIT = 2;
+
+reg [1:0] fifo_valid_state;
+reg [1:0] fifo_valid_next_state; 
+
+
+strb2mask strb2mask_ins (
+    .clk (clk),
+    .rst (rst),
+    .m_axi_wstrb (fifo_out_mux),
+    .pmesh_mask(pmesh_mask), 
+    .s_channel_valid (wstrb_fifoside_valid),
+    .s_channel_ready(wstrb_fifoside_ready),
+    .d_channel_ready(wstrb_outputside_ready), 
+    .d_channel_valid(wstrb_outputside_valid),
+    .split (split)
+);
+
+assign fifo_out_mux = (wstrb_fifo_empty) ? 8'b1111_1111 : wstrb_fifo_out;
+
+
+sync_fifo #(
+	.DSIZE(AXI_LITE_DATA_WIDTH/8),
+	.ASIZE(5),
+	.MEMSIZE(16) // should be 2 ^ (ASIZE-1)
+) wstrb_fifo (
+	.rdata(wstrb_fifo_out),
+	.empty(wstrb_fifo_empty),
+	.clk(clk),
+	.ren(wstrb_fifo_ren),
+	.wdata(wstrb_fifo_wdata),
+	.full(wstrb_fifo_full),
+	.wval(wstrb_fifo_wval),
+	.reset(rst)
+);
+
+
+assign wstrb_fifo_ren = (noc_store_done && !wstrb_fifo_empty);
+assign wstrb_fifo_wval = m_axi_wvalid && m_axi_wready;
+assign wstrb_fifo_wdata = m_axi_wstrb;
+
+assign wstrb_outputside_ready = (flit_state == 3'd1) && (type_fifo_out == 2'd2);
+
+
+
+//state machine 
+
+
+//valid state machine 
+always@ (posedge clk) begin
+    if (rst) begin
+        fifo_valid_state <= IDLE;
+    end
+    else begin
+        fifo_valid_state <= fifo_valid_next_state;
+    end
+end
+//state transfer logic 
+always@ (*) begin
+    if (fifo_valid_state == IDLE) begin
+        if (fifo_has_packet && type_fifo_out == 2'd2) begin
+            fifo_valid_next_state = VALID;
+        end
+        else fifo_valid_next_state = fifo_valid_state;
+    end
+    else if (fifo_valid_state == VALID) begin
+        if (wstrb_fifoside_ready) fifo_valid_next_state = WAIT;
+        else fifo_valid_next_state = fifo_valid_state;
+    end
+    else if (fifo_valid_state == WAIT) begin
+        if (noc_store_done) fifo_valid_next_state = IDLE;
+        else fifo_valid_next_state = fifo_valid_state;
+    end
+    else fifo_valid_next_state = fifo_valid_state;
+end
+
+assign wstrb_fifoside_valid = (fifo_valid_state == VALID);
+
+
+
+
+
+/* fifo for read addr */
+sync_fifo #(
+	.DSIZE(64),
+	.ASIZE(5),
+	.MEMSIZE(16) // should be 2 ^ (ASIZE-1)    
+) raddr_fifo (
+	.rdata(araddr_fifo_out),
+	.empty(araddr_fifo_empty),
+	.clk(clk),
+	.ren(araddr_fifo_ren),
+	.wdata(araddr_fifo_wdata),
+	.full(araddr_fifo_full),
+	.wval(araddr_fifo_wval),
+	.reset(rst)
+);
+
+assign araddr_fifo_wval = m_axi_arvalid && m_axi_arready;
+assign araddr_fifo_wdata = m_axi_araddr;
+assign araddr_fifo_ren = (noc_load_done && !araddr_fifo_empty);
+
+
+/* start the state machine when fifo is not empty and noc is ready 
+* We need to toggle between address and data fifos.
+*/
+
+
+
+
+
+
+
+wire                                    fifo_has_packet;
+wire                                    noc_store_done;
+wire                                    noc_load_done;
+wire [64-1:0]          out_data[0:NOC_PAYLOAD_LEN-1];
+reg                                     noc_last_header;
+reg                                     noc_last_data;
+reg [2:0]                               noc_cnt;
+
+/*assign fifo_has_packet = (type_fifo_out == `MSG_TYPE_STORE) ? (!awaddr_fifo_empty && !wdata_fifo_empty) :
+                        (type_fifo_out == `MSG_TYPE_LOAD) ? !araddr_fifo_empty : 1'b0;*/
+assign fifo_has_packet = (type_fifo_out == 2'd2) ? (!awaddr_fifo_empty && !wdata_fifo_empty && !wstrb_fifo_empty) :
+                           (type_fifo_out == 2'd1) ? !araddr_fifo_empty : 1'b0;
+
+assign noc_store_done = noc_last_data && type_fifo_out == 2'd2 && ~wstrb_outputside_valid;
+//assign noc_store_done = noc_last_data && type_fifo_out == `MSG_TYPE_STORE
+assign noc_load_done = noc_last_header && type_fifo_out == 2'd1;
+
+localparam NOC_PAYLOAD_LEN = (AXI_LITE_DATA_WIDTH < 64) ?
+                        3'b1 : AXI_LITE_DATA_WIDTH/64;
+
+generate begin
+    genvar k;
+    if (AXI_LITE_DATA_WIDTH < 64) begin
+        for (k=0; k<64/AXI_LITE_DATA_WIDTH; k = k + 1)
+        begin: DATA_GEN
+            assign out_data[(k+1)*AXI_LITE_DATA_WIDTH-1 : k*AXI_LITE_DATA_WIDTH] = wdata_fifo_out;
+        end
+    end
+    else begin
+        for (k=0; k<NOC_PAYLOAD_LEN; k = k + 1)
+        begin: DATA_GEN
+            assign out_data[k] = wdata_fifo_out[(k+1)*64-1 : k*64];
+        end
+    end
+end
+endgenerate
+
+reg [2:0]           msg_data_size;
+
+/* set defaults for the flit */
+always @(*)
+begin
+    case (type_fifo_out)
+        2'd2: begin
+            msg_type = 8'd15; // axilite peripheral is writing to the memory?
+            msg_length = 2'd2 + NOC_PAYLOAD_LEN; // 2 extra headers + 1 data
+            msg_data_size = 3'b100; // fix it for now
+            //msg_data_size = 3'b001;
+            msg_address = {{48-40{1'b0}}, awaddr_fifo_out[40-1:0]};
+        end
+
+        2'd1: begin
+            msg_type = 8'd14; // axilite peripheral is reading from the memory?
+            msg_length = 2'd2; // only 2 extra headers
+            msg_data_size = 3'b100; // fix it for now. 
+            //msg_data_size = 3'b001;
+            msg_address = {{48-40{1'b0}}, araddr_fifo_out[40-1:0]};
+        end
+        
+        default: begin
+            msg_length = 2'b0;
+            msg_data_size = 3'b100;
+            //msg_data_size = 3'b001;
+        end
+    endcase
+end
+
+always @(posedge clk)
+begin
+    if (rst) begin
+        noc_cnt <= 3'b0;
+    end
+    else begin
+        noc_cnt <= (noc_last_header | noc_last_data)  ? 3'b0 :
+                    (fifo_has_packet && noc2_ready_in) ? noc_cnt + 1 : noc_cnt;
+    end
+end
+
+always @(*)
+begin
+    noc_last_header = 1'b0;
+    noc_last_data = 1'b0;
+    if (noc2_ready_in) begin
+        noc_last_header = (flit_state == 3'd2 &&
+                                    noc_cnt == 3) ? 1'b1 : 1'b0;
+        noc_last_data = (flit_state == 3'd3 &&
+                                    noc_cnt == NOC_PAYLOAD_LEN-1) ? 1'b1 : 1'b0;
+    end
+end
+
+always @(posedge clk)
+begin
+    if (rst) begin
+        flit_state <= 3'd0;
+    end
+    else begin
+        case (flit_state)
+            3'd0: begin
+                if ((fifo_has_packet && type_fifo_out == 2'd2) && noc2_ready_in)
+                    //flit_state <= `MSG_STATE_HEADER;
+                    flit_state <= 3'd1;
+                else if ((fifo_has_packet && type_fifo_out == 2'd1) && noc2_ready_in)
+                    flit_state <= 3'd2;
+            end
+            3'd1:begin
+                if (wstrb_outputside_ready & wstrb_outputside_valid)
+                    flit_state <= 3'd2;
+            end
+            3'd2: begin
+                if (noc_last_header && type_fifo_out == 2'd2)
+                    flit_state <= 3'd3;
+                else if (noc_load_done)
+                    flit_state <= 3'd0;
+            end
+
+            3'd3: begin
+                if (noc_store_done)
+                    flit_state <= 3'd0;
+                else 
+                    flit_state <= 3'd1;
+            end
+        endcase
+    end
+end
+
+always @(*)
+begin
+    msg_mshrid = {8{1'b0}};
+    msg_options_1 = {6{1'b0}};
+    msg_options_2 = 16'b0;
+    msg_options_3 = 30'b0;
+    case (flit_state)
+        3'd2: begin
+            case (noc_cnt)
+                3'b001: begin
+                    flit[63:50] = dest_chipid;
+                    flit[49:42] = dest_xpos;
+                    flit[41:34] = dest_ypos;
+                    flit[33:30] = dest_fbits; // towards memory?
+                    flit[29:22] = msg_length;
+                    flit[21:14] = msg_type;
+                    flit[13:6] = msg_mshrid;
+                    flit[5:0] = msg_options_1;
+                    flit_ready = 1'b1;
+                end
+
+                3'b010: begin
+                    flit[((16 + 40 - 1)):(16)] = msg_address;
+                    flit[15:0] = msg_options_2;
+                    flit[10:8] = msg_data_size;
+                    flit_ready = 1'b1;                  
+                end
+
+                3'b011: begin
+                    flit[63:50] = src_chipid;
+                    flit[49:42] = src_xpos;
+                    flit[41:34] = src_ypos;
+                    flit[33:30] = src_fbits;
+                    flit[29:0] = msg_options_3;
+                    flit_ready = 1'b1;
+                end
+            endcase
+        end
+
+        3'd3: begin
+            flit[64-1:0] = out_data[noc_cnt]; //wdata_fifo_out;
+            flit_ready = 1'b1;
+        end
+
+        default: begin
+            flit[64-1:0] = {64{1'b0}};
+            flit_ready = 1'b0;
+        end
+    endcase
+end
+
+assign noc2_valid_out = flit_ready;
+assign noc2_data_out = flit;
+
+endmodule/* In this version, let's assume that AXI_LITE_DATA_WIDTH >= `NOC_DATA_WDITH
+In the subsequent version, we'll add support for axi data widths smaller than
+noc data width*/
+
+// Copyright (c) 2015 Princeton University
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of Princeton University nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//==================================================================================================
+//  Filename      : define.h
+//  Created On    : 2014-02-20
+//  Last Modified : 2018-11-16 17:14:11
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : main header file defining global architecture parameters
+//
+//
+//==================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module noc_response_axilite #(
+    parameter SLAVE_RESP_BYTEWIDTH = 4,
+    parameter SWAP_ENDIANESS       = 0,
+    // shift unaligned read data
+    parameter ALIGN_RDATA          = 1,
+    parameter AXI_LITE_DATA_WIDTH  = 512,
+    parameter AXI_LITE_RESP_WIDTH  = 2
+) (
+    // Clock + Reset
+    input  wire                                   clk,
+    input  wire                                   rst,
+
+    input  wire                                   noc_valid_in,
+    input  wire [64-1:0]             noc_data_in,
+    output wire                                   noc_ready_out,
+
+    // Memory Splitter <- AXI SPI
+    output  reg                                   noc_valid_out,
+    output  reg  [64-1:0]            noc_data_out,
+    input  wire                                   noc_ready_in,
+
+    // AXI Read Data Channel Signals
+    output  reg [AXI_LITE_DATA_WIDTH-1:0]         m_axi_rdata,
+    output  reg [AXI_LITE_RESP_WIDTH-1:0]         m_axi_rresp,
+    output  reg                                   m_axi_rvalid,
+    input  wire                                   m_axi_rready,
+
+    // AXI Write Response Channel Signals
+    output  reg [AXI_LITE_RESP_WIDTH-1:0]         m_axi_bresp,
+    output  reg                                   m_axi_bvalid,
+    input wire                                    m_axi_bready,
+
+    // this does not belong to axi lite and is non-standard
+    output  reg  [6-1:0]   w_reqbuf_size,
+    output  reg  [6-1:0]   r_reqbuf_size
+);
+
+//==============================================================================
+// Local Parameters
+//==============================================================================
+
+// States for Incoming Piton Messages
+localparam MSG_STATE_INVAL      = 3'd0; // Invalid Message
+localparam MSG_STATE_HEADER_0   = 3'd1; // Header 0
+localparam MSG_STATE_HEADER_1   = 3'd2; // Header 1
+localparam MSG_STATE_HEADER_2   = 3'd3; // Header 2
+localparam MSG_STATE_DATA       = 3'd4; // Data Lines
+
+// Types for Incoming Piton Messages
+localparam MSG_TYPE_INVAL       = 2'd0; // Invalid Message
+localparam MSG_TYPE_LOAD        = 2'd1; // Load Request
+localparam MSG_TYPE_STORE       = 2'd2; // Store Request
+
+// States for Buffer Status
+localparam BUF_STATUS_INCOMP    = 2'd0; // Buffer not yet filled by one complete request/response
+localparam BUF_STATUS_COMP      = 2'd1; // Buffer contains a complete but unsent request
+localparam BUF_STATUS_WAITRESP  = 2'd2; // Request sent via AXI, waiting on response
+localparam BUF_STATUS_RESPSEND  = 2'd3; // Response waiting to forward back to memory splitter
+
+// ACK's
+localparam LOAD_ACK = 1'd0;
+localparam STORE_ACK = 1'd1;
+
+//==============================================================================
+// Local Variables
+//==============================================================================
+
+// Meta-registers for tracking incoming Piton packets (used in parsing)
+ reg  [2:0]                          splitter_io_msg_state_f;
+ reg  [1:0]                          splitter_io_msg_type_f;
+ reg  [8-1:0]        splitter_io_msg_counter_f;
+
+// Buffer registers for load requests
+ reg  [64-1:0]          r_req_buf_header0_f;
+ reg  [64-1:0]          r_req_buf_header1_f;
+ reg  [64-1:0]          r_req_buf_header2_f;
+ reg  [1:0]                          r_req_buf_status_f;
+
+// Buffer registers for store requests
+ reg  [64-1:0]          w_req_buf_header0_f;
+ reg  [64-1:0]          w_req_buf_header1_f;
+ reg  [64-1:0]          w_req_buf_header2_f;
+ reg  [64-1:0]          w_req_buf_data0_f;
+ wire [1:0]                          w_req_buf_status;
+ reg  [1:0]                          w_addr_req_buf_status_f;
+ reg  [1:0]                          w_data_req_buf_status_f;
+
+// Buffer registers for load responses
+ reg  [64-1:0]          r_resp_buf_header0_f;
+ reg  [AXI_LITE_DATA_WIDTH-1:0] r_resp_buf_data0_f;
+ reg  [AXI_LITE_RESP_WIDTH-1:0] r_resp_buf_rresp_f;
+ reg  [1:0]                          r_resp_buf_status_f;
+
+// Buffer registers for store responses
+ reg  [64-1:0]          w_resp_buf_header0_f;
+ reg  [AXI_LITE_RESP_WIDTH-1:0] w_resp_buf_bresp_f;
+ wire [1:0]                          w_resp_buf_status;
+ reg  [1:0]                          w_addr_resp_buf_status_f;
+ reg  [1:0]                          w_data_resp_buf_status_f;
+
+// Helper Signals for saving requests
+ wire                         splitter_io_go;
+ wire                         splitter_io_load_go;
+ wire                         splitter_io_store_go;
+
+ wire                         splitter_io_msg_is_load;
+ wire                         splitter_io_msg_is_store;
+ wire                         splitter_io_msg_is_load_next;
+ wire                         splitter_io_msg_is_store_next;
+
+ wire [2:0]                   splitter_io_msg_state_next;
+ wire [2:0]                   splitter_io_msg_type_mux_out;
+ wire [2:0]                   splitter_io_msg_type_next;
+ wire [8-1:0] splitter_io_msg_counter_next;
+
+// Helper Signals for sending responses
+ wire                         m_axi_ar_go;
+ wire                         m_axi_w_go;
+ wire                         m_axi_aw_go;
+
+ wire                         m_axi_b_go;
+ wire                         m_axi_r_go;
+ reg  [64-1:0]   a_axi_rdata_shifted;
+ wire [64-1:0]   a_axi_rdata_masked;
+
+ wire [64-1:0]   r_resp_buf_header0_next;
+ wire [64-1:0]   w_resp_buf_header0_next;
+
+ reg  [8-1:0] io_splitter_ack_load_counter_f;
+ reg                          io_splitter_arb_f;
+ reg                          io_splitter_ack_mux_sel;
+
+ wire                         r_resp_buf_val;
+ wire                         w_resp_buf_val;
+ wire [64-1:0]   io_splitter_ack_store;
+ wire [64-1:0]   io_splitter_ack_load;
+ wire                         io_splitter_ack_load_go;
+ wire                         io_splitter_ack_store_go;
+
+
+// Types for Incoming Piton Messages
+localparam MSG_TYPE_INVAL_ACK       = 2'd0; // Invalid Message
+localparam MSG_TYPE_LOAD_ACK        = 2'd1; // Load Request Ack
+localparam MSG_TYPE_STORE_ACK       = 2'd2; // Store Request Ack
+
+reg  [2:0]                   noc_io_msg_state_f;
+reg  [1:0]                   noc_io_msg_type_f;
+reg  [8-1:0] noc_io_msg_counter_f;
+reg  [1:0]                   noc_msg_type_mux_out;
+reg  [1:0]                   noc_msg_type_mux_out_next;
+
+wire                         noc_io_go;
+//wire [1:0]                   noc_msg_type_mux_out;
+wire [2:0]                   noc_io_msg_state_next;
+wire [2:0]                   noc_io_msg_type_mux_out;
+wire [2:0]                   noc_io_msg_type_next;
+wire [8-1:0] noc_io_msg_counter_next;
+
+reg                          msg_data_done;
+reg  [2:0]                   msg_state_f;
+reg  [2:0]                   msg_state_next;
+reg  [8-1:0] msg_payload_len;
+reg  [8-1:0] msg_counter_next;
+reg  [8-1:0] msg_counter_f;
+
+
+// Should we read data from noc_data_in?
+assign noc_io_go = noc_valid_in && noc_ready_out;
+
+always @(posedge clk)
+begin
+    if (rst) begin
+        msg_state_f <= MSG_STATE_HEADER_0;
+        msg_counter_f <= 8'b0;
+    end
+    else begin
+        msg_state_f <= msg_state_next;
+        msg_counter_f <= msg_counter_next;
+    end
+end
+
+always @(*)
+begin
+    msg_state_next = msg_state_f;
+    msg_counter_next = msg_counter_f;
+    msg_data_done = 1'b0;
+    m_axi_bresp = {AXI_LITE_RESP_WIDTH{1'b0}};
+    m_axi_bvalid = 1'b0;
+    case (msg_state_f)
+        MSG_STATE_HEADER_0: begin
+            if (noc_io_go && (noc_data_in[21:14] == 8'd26)) begin
+                
+                if (noc_data_in[29:22] == 8'd0) 
+                begin
+                    msg_state_next = MSG_STATE_HEADER_0;
+                end
+                else
+                begin
+                    msg_state_next = MSG_STATE_DATA;
+                end
+
+                msg_counter_next = 8'd0;
+                msg_payload_len = noc_data_in[29:22];
+            end
+            else if (noc_io_go && (noc_data_in[21:14] == 8'd27)) begin
+                
+                if (noc_data_in[29:22] == 8'd0) 
+                begin
+                    msg_state_next = MSG_STATE_HEADER_0;
+                    m_axi_bresp = {AXI_LITE_RESP_WIDTH{1'b0}};
+                    m_axi_bvalid = 1'b1;
+                end
+                else
+                begin
+                    msg_state_next = MSG_STATE_DATA;
+                end
+
+                msg_counter_next = 8'd0;
+                msg_payload_len = noc_data_in[29:22];
+            end
+        end
+        MSG_STATE_DATA: begin
+            if (msg_counter_f >= msg_payload_len) begin
+                msg_data_done = 1'b1;
+                msg_state_next = MSG_STATE_HEADER_0;
+                msg_payload_len = 8'd0;
+                msg_counter_next = 8'd0;
+            end
+            else begin
+                msg_counter_next = (noc_io_go) ? msg_counter_f + 1'b1 : msg_counter_f;
+            end
+        end
+    endcase
+end
+
+//assign msg_type = (noc_io_go && msg_state_f == MSG_STATE_HEADER_0) ?
+//                        noc_data_in[`MSG_TYPE] :
+
+//--------------------------------------------------------------------------
+// Forward data to AXI Read Channel
+//--------------------------------------------------------------------------
+
+wire                                ren;
+wire                                full;
+wire                                empty;
+wire [AXI_LITE_DATA_WIDTH-1:0]      rdata;
+
+reg                                 wval;
+reg [AXI_LITE_DATA_WIDTH-1:0]       wdata;           
+
+/* fifo for read data */
+sync_fifo #(
+	.DSIZE(AXI_LITE_DATA_WIDTH),
+	.ASIZE(5),
+	.MEMSIZE(16) // should be 2 ^ (ASIZE-1)    
+) raddr_fifo (
+	.rdata(rdata),
+	.empty(empty),
+	.clk(clk),
+	.ren(ren),
+	.wdata(wdata),
+	.full(full),
+	.wval(wval),
+	.reset(rst)
+);
+
+assign noc_ready_out = !full;
+assign ren = (!empty && m_axi_rready);
+
+generate
+    if (AXI_LITE_DATA_WIDTH == 64) begin
+        always @(posedge clk)
+        begin
+            if (rst) begin
+                wval <= 
+                wdata <= {AXI_LITE_DATA_WIDTH{1'b0}};
+            end
+            else begin
+                wval <= (msg_state_f == MSG_STATE_DATA && noc_io_go && !full);
+                wdata <= noc_data_in;
+            end
+        end        
+    end
+    else if (AXI_LITE_DATA_WIDTH >= 64) begin
+        reg [AXI_LITE_DATA_WIDTH-1:0]                      data;
+        always @(posedge clk)
+        begin
+            if (rst) begin
+                wval <= 1'b0;
+                wdata <= {AXI_LITE_DATA_WIDTH{1'b0}};
+            end
+            else begin
+                wval <= 1'b0;
+
+                if (msg_state_f == MSG_STATE_DATA && noc_io_go && !full)
+                begin
+                    data[msg_counter_f*64 +: 64] = noc_data_in;
+                end
+
+                if (msg_data_done) begin
+                    wval <= 1'b1;
+                    wdata <= data;
+                end
+            end
+        end
+    end
+endgenerate
+
+assign m_axi_rvalid = ren;
+assign m_axi_rdata = rdata;
+assign m_axi_rresp = {AXI_LITE_RESP_WIDTH{1'b0}};
+
+endmodule
+/*
+Copyright (c) 2015 Princeton University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Princeton University nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+//==================================================================================================
+//  Filename      : sync_fifo.v
+//  Created On    : 2014-10-13
+//  Last Modified : 2014-10-13
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : A replacement for async fifo in case it doesn't work
+//  Note          : It uses positive reset to be consistant with Sam's async fifo
+//
+//==================================================================================================
+
+
+module sync_fifo 
+#(
+	parameter DSIZE = 64,
+	parameter ASIZE = 5,
+	parameter MEMSIZE = 16 // should be 2 ^ (ASIZE-1)
+)
+(
+	rdata, 
+	empty,
+	clk,
+	ren,
+	wdata,
+	full,
+	wval,
+	reset
+	);
+
+//Inputs and Outputs
+output reg [DSIZE-1:0] 	rdata;
+output reg			empty;
+output reg			full;
+input	[DSIZE-1:0]	wdata;
+input			wval;
+input			ren;
+input			clk;
+input 			reset;
+
+
+reg [DSIZE-1:0] sync_buf_mem_f [MEMSIZE-1:0];
+reg [ASIZE:0] sync_buf_counter_f;
+reg [ASIZE:0] sync_buf_counter_next;
+reg [ASIZE-2:0] sync_rd_ptr_f;
+reg [ASIZE-2:0] sync_rd_ptr_next;
+reg [ASIZE-2:0] sync_wr_ptr_f;
+reg [ASIZE-2:0] sync_wr_ptr_next;
+
+always @ *
+begin
+    empty = (sync_buf_counter_f == 0);
+    full =  (sync_buf_counter_f ==  MEMSIZE);
+end
+
+always @ *
+begin
+    if (reset)
+    begin
+        sync_buf_counter_next = 0;
+    end
+    else if ((wval && !full) && (ren && !empty))
+    begin
+        sync_buf_counter_next = sync_buf_counter_f;
+    end
+    else if (wval && !full)
+    begin
+        sync_buf_counter_next = sync_buf_counter_f + 1;
+    end
+    else if (ren && !empty)
+    begin
+        sync_buf_counter_next = sync_buf_counter_f - 1;
+    end
+    else
+    begin
+        sync_buf_counter_next = sync_buf_counter_f;
+    end
+end
+
+
+always @ (posedge clk)
+begin
+    sync_buf_counter_f <= sync_buf_counter_next;
+end
+
+
+always @ *
+begin
+    if (reset)
+    begin   
+        sync_rd_ptr_next = 0;
+    end
+    else if (ren && !empty)
+    begin
+        sync_rd_ptr_next = sync_rd_ptr_f + 1;
+    end
+    else
+    begin
+        sync_rd_ptr_next = sync_rd_ptr_f;
+    end
+end
+
+always @ (posedge clk)
+begin
+    sync_rd_ptr_f <= sync_rd_ptr_next;
+end
+
+always @ *
+begin
+    if (reset)
+    begin   
+        sync_wr_ptr_next = 0;
+    end
+    else if (wval && !full)
+    begin
+        sync_wr_ptr_next = sync_wr_ptr_f + 1;
+    end
+    else
+    begin
+        sync_wr_ptr_next = sync_wr_ptr_f;
+    end
+end
+
+
+always @ (posedge clk)
+begin
+    sync_wr_ptr_f <= sync_wr_ptr_next;
+end
+
+always @ *
+begin
+    rdata = sync_buf_mem_f[sync_rd_ptr_f];
+end
+
+always @ (posedge clk)
+begin
+    if (wval && !full)
+    begin
+        sync_buf_mem_f[sync_wr_ptr_f] <= wdata;
+    end
+    else
+    begin 
+        sync_buf_mem_f[sync_wr_ptr_f] <= sync_buf_mem_f[sync_wr_ptr_f];
+    end
+end
+
+
+
+endmodule
+// Copyright (c) 2015 Princeton University
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of Princeton University nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//==================================================================================================
+//  Filename      : fake_mem_ctrl.v
+//  Created On    : 2014-04-15
+//  Last Modified : 2018-11-23 13:03:10
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : fake memory controller for the L2 cache
+//
+//
+//==================================================================================================
+
+/*
+Copyright (c) 2015 Princeton University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Princeton University nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+//==================================================================================================
+//  Filename      : l2.h.pyv
+//  Created On    : 2014-02-20
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : header file for the L2 cache
+//
+//
+//==================================================================================================
+
+// /home/jbalkind/Documents/openpiton/piton/verif/env/manycore/devices_ariane.xml
+
+
+
+// Input buffer for pipeline1
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Input buffer for pipeline2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Output buffer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// L2 cache configuration
+
+
+
+
+
+
+
+//`define L2_SIZE                  65536
+//`define L2_SIZE_WIDTH            16
+
+
+
+
+
+
+//`define L2_LINE_SIZE             64
+//`define L2_LINE_SIZE_WIDTH       6
+
+
+
+
+
+
+
+
+
+
+
+
+
+//`define L2_WAYS                  4
+//`define L2_WAYS_WIDTH            2
+//`define L2_WAY_0                 2'b00
+//`define L2_WAY_1                 2'b01
+//`define L2_WAY_2                 2'b10
+//`define L2_WAY_3                 2'b11
+
+
+
+
+
+// Tag array
+
+
+
+
+
+
+
+//`define L2_TAG_INDEX_WIDTH      8
+//`define L2_TAG_WIDTH            26
+//`define L2_TAG_WAY_WIDTH        26
+//`define L2_TAG_ARRAY_WIDTH      104
+
+
+// Tag Address decomposition 
+
+
+
+
+//`define L2_TAG_INDEX            13:6
+//`define L2_TAG                  39:14
+
+
+//Data array
+
+
+
+
+
+
+
+
+
+
+
+
+//`define L2_DATA_INDEX_WIDTH         12 
+
+
+
+
+
+
+
+
+// Data Address decomposition 
+
+
+
+
+
+
+
+//Dir array
+
+
+
+//`define L2_DIR_INDEX_WIDTH      10 
+
+
+
+
+
+//State array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Whether the cache line is in Icaches or Dcaches
+
+
+
+
+
+
+
+//`define L2_OWNER_X_WIDTH        3
+//`define L2_OWNER_Y_WIDTH        3
+//`define L2_OWNER_XY             2:0
+//`define L2_OWNER_X              2:0
+//`define L2_OWNER_Y              5:3
+
+
+
+
+//Round Robin selection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// State decomposition 
+
+
+
+
+
+
+
+
+
+
+
+
+//MSHR array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//`define L2_MSHR_CMP_ADDR        13:6
+//`define L2_MSHR_ADDR            39:0
+//`define L2_MSHR_WAY             41:40
+//`define L2_MSHR_MSHRID          49:42
+//`define L2_MSHR_CACHE_TYPE      50
+//`define L2_MSHR_DATA_SIZE       53:51
+//`define L2_MSHR_MSG_TYPE        61:54
+//`define L2_MSHR_L2_MISS         62
+//`define L2_MSHR_SRC_CHIPID      76:63
+//`define L2_MSHR_SRC_X           84:77
+//`define L2_MSHR_SRC_Y           92:85
+//`define L2_MSHR_SRC_FBITS       96:93
+//`define L2_MSHR_SDID            106:97
+//`define L2_MSHR_LSID            112:107      
+//`define L2_MSHR_MISS_LSID       118:113
+//`define L2_MSHR_SMC_MISS        119
+//`define L2_MSHR_RECYCLED        120
+//`define L2_MSHR_INV_FWD_PENDING 121
+
+
+//SMC array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Message destination_type
+
+
+
+
+
+
+
+//L2 public sharer beyond the maximum clump size
+
+
+
+//L2 registers
+
+
+
+//Special addresses
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//L2 core ID
+
+
+
+
+
+//L2 dir array reuse
+
+
+
+
+
+
+
+//Control Signal 
+
+
+
+
+
+
+
+
+//AMO ALU OP macros
+
+
+
+
+
+
+
+
+
+
+
+
+//Control Signal in Stage 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Copyright (c) 2015 Princeton University
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of Princeton University nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//==================================================================================================
+//  Filename      : define.h
+//  Created On    : 2014-02-20
+//  Last Modified : 2018-11-16 17:14:11
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : main header file defining global architecture parameters
+//
+//
+//==================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Modified by Princeton University on June 9th, 2015
+/*
+* ========== Copyright Header Begin ==========================================
+* 
+* OpenSPARC T1 Processor File: iop.h
+* Copyright (c) 2006 Sun Microsystems, Inc.  All Rights Reserved.
+* DO NOT ALTER OR REMOVE COPYRIGHT NOTICES.
+* 
+* The above named program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License version 2 as published by the Free Software Foundation.
+* 
+* The above named program is distributed in the hope that it will be 
+* useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public
+* License along with this work; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+* 
+* ========== Copyright Header End ============================================
+*/
+//-*- verilog -*-
+////////////////////////////////////////////////////////////////////////
+/*
+//
+//  Description:	Global header file that contain definitions that 
+//                      are common/shared at the IOP chip level
+*/
+////////////////////////////////////////////////////////////////////////
+
+
+// Address Map Defines
+// ===================
+
+
+
+
+// CMP space
+
+
+
+// IOP space
+
+
+
+
+                               //`define ENET_ING_CSR     8'h84
+                               //`define ENET_EGR_CMD_CSR 8'h85
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// L2 space
+
+
+
+// More IOP space
+
+
+
+
+
+//Cache Crossbar Width and Field Defines
+//======================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//bits 133:128 are shared by different fields
+//for different packet types.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//`define CPX_INV_PA_HI   116
+//`define CPX_INV_PA_LO   112
+
+
+
+
+
+
+// cache invalidation format
+// `define CPX_INV_DCACHE_WORD0_VAL 0
+// `define CPX_INV_ICACHE_WORD0_VAL 1
+// `define CPX_INV_WORD0_WAY 5:2
+// `define CPX_INV_DCACHE_WORD0_VAL 6
+// `define CPX_INV_ICACHE_WORD0_VAL 7
+// `define CPX_INV_WORD0_WAY 11:8
+// `define CPX_INV_DCACHE_WORD0_VAL 12
+// // `define CPX_INV_ICACHE_WORD0_VAL 13
+// `define CPX_INV_WORD0_WAY 17:14
+// `define CPX_INV_DCACHE_WORD0_VAL 18
+// // `define CPX_INV_ICACHE_WORD0_VAL 19
+// `define CPX_INV_WORD0_WAY 23:20
+
+
+
+
+// 4 extra bits for bigger icache/dcache
+// up to 512KB l1 icache, 256KB l1 dcache
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Pico defines
+
+
+
+
+
+
+
+
+
+
+
+
+
+//End cache crossbar defines
+
+
+// Number of COS supported by EECU 
+
+
+
+// 
+// BSC bus sizes
+// =============
+//
+
+// General
+
+
+
+
+// CTags
+
+
+
+
+
+
+
+
+
+
+
+
+
+// reinstated temporarily
+
+
+
+
+// CoS
+
+
+
+
+
+
+// L2$ Bank
+
+
+
+// L2$ Req
+
+
+
+
+
+
+
+
+
+
+
+
+
+// L2$ Ack
+
+
+
+
+
+
+
+
+// Enet Egress Command Unit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Enet Egress Packet Unit
+
+
+
+
+
+
+
+
+
+
+
+
+
+// This is cleaved in between Egress Datapath Ack's
+
+
+
+
+
+
+
+
+// Enet Egress Datapath
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// In-Order / Ordered Queue: EEPU
+// Tag is: TLEN, SOF, EOF, QID = 15
+
+
+
+
+
+
+// Nack + Tag Info + CTag
+
+
+
+
+// ENET Ingress Queue Management Req
+
+
+
+
+
+
+
+
+
+
+
+
+// ENET Ingress Queue Management Ack
+
+
+
+
+
+
+
+
+// Enet Ingress Packet Unit
+
+
+
+
+
+
+
+
+
+
+
+
+// ENET Ingress Packet Unit Ack
+
+
+
+
+
+
+
+// In-Order / Ordered Queue: PCI
+// Tag is: CTAG
+
+
+
+
+
+// PCI-X Request
+
+
+
+
+
+
+
+
+
+
+
+// PCI_X Acknowledge
+
+
+
+
+
+
+
+
+
+
+
+//
+// BSC array sizes
+//================
+//
+
+
+
+
+
+
+
+
+
+
+
+
+// ECC syndrome bits per memory element
+
+
+
+
+//
+// BSC Port Definitions
+// ====================
+//
+// Bits 7 to 4 of curr_port_id
+
+
+
+
+
+
+
+
+// Number of ports of each type
+
+
+// Bits needed to represent above
+
+
+// How wide the linked list pointers are
+// 60b for no payload (2CoS)
+// 80b for payload (2CoS)
+
+//`define BSC_OBJ_PTR   80
+//`define BSC_HD1_HI    69
+//`define BSC_HD1_LO    60
+//`define BSC_TL1_HI    59
+//`define BSC_TL1_LO    50
+//`define BSC_CT1_HI    49
+//`define BSC_CT1_LO    40
+//`define BSC_HD0_HI    29
+//`define BSC_HD0_LO    20
+//`define BSC_TL0_HI    19
+//`define BSC_TL0_LO    10
+//`define BSC_CT0_HI     9
+//`define BSC_CT0_LO     0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// I2C STATES in DRAMctl
+
+
+
+
+
+
+
+//
+// IOB defines
+// ===========
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//`define IOB_INT_STAT_WIDTH   32
+//`define IOB_INT_STAT_HI      31
+//`define IOB_INT_STAT_LO       0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// fixme - double check address mapping
+// CREG in `IOB_INT_CSR space
+
+
+
+
+
+
+
+
+
+
+// CREG in `IOB_MAN_CSR space
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Address map for TAP access of SPARC ASI
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+// CIOP UCB Bus Width
+// ==================
+//
+//`define IOB_EECU_WIDTH       16  // ethernet egress command
+//`define EECU_IOB_WIDTH       16
+
+//`define IOB_NRAM_WIDTH       16  // NRAM (RLDRAM previously)
+//`define NRAM_IOB_WIDTH        4
+
+
+
+
+//`define IOB_ENET_ING_WIDTH   32  // ethernet ingress
+//`define ENET_ING_IOB_WIDTH    8
+
+//`define IOB_ENET_EGR_WIDTH    4  // ethernet egress
+//`define ENET_EGR_IOB_WIDTH    4
+
+//`define IOB_ENET_MAC_WIDTH    4  // ethernet MAC
+//`define ENET_MAC_IOB_WIDTH    4
+
+
+
+
+//`define IOB_BSC_WIDTH         4  // BSC
+//`define BSC_IOB_WIDTH         4
+
+
+
+
+
+
+
+//`define IOB_CLSP_WIDTH        4  // clk spine unit
+//`define CLSP_IOB_WIDTH        4
+
+
+
+
+
+//
+// CIOP UCB Buf ID Type
+// ====================
+//
+
+
+
+//
+// Interrupt Device ID
+// ===================
+//
+// Caution: DUMMY_DEV_ID has to be 9 bit wide
+//          for fields to line up properly in the IOB.
+
+
+
+//
+// Soft Error related definitions 
+// ==============================
+//
+
+
+
+//
+// CMP clock
+// =========
+//
+
+
+
+
+//
+// NRAM/IO Interface
+// =================
+//
+
+
+
+
+
+
+
+
+
+
+//
+// NRAM/ENET Interface
+// ===================
+//
+
+
+
+
+
+
+
+//
+// IO/FCRAM Interface
+// ==================
+//
+
+
+
+
+
+
+//
+// PCI Interface
+// ==================
+// Load/store size encodings
+// -------------------------
+// Size encoding
+// 000 - byte
+// 001 - half-word
+// 010 - word
+// 011 - double-word
+// 100 - quad
+
+
+
+
+
+
+//
+// JBI<->SCTAG Interface
+// =======================
+// Outbound Header Format
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Inbound Header Format
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+// JBI->IOB Mondo Header Format
+// ============================
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// JBI->IOB Mondo Bus Width/Cycle
+// ==============================
+// Cycle  1 Header[15:8]
+// Cycle  2 Header[ 7:0]
+// Cycle  3 J_AD[127:120]
+// Cycle  4 J_AD[119:112]
+// .....
+// Cycle 18 J_AD[  7:  0]
+
+
+
+
+
+
+
+
+
+
+module fake_mem_ctrl
+
+#(
+    parameter [63:0] MEM_BASE   = 64'h0000000000000000,
+    parameter [63:0] SIZE_BYTES = 64'h0000000000010000
+)
+
+(
+
+    input wire clk,
+    input wire rst_n,
+
+    input wire noc_valid_in,
+    input wire [64-1:0] noc_data_in,
+    output reg noc_ready_in,
+
+
+    output reg noc_valid_out,
+    output reg [64-1:0] noc_data_out,
+    input wire noc_ready_out
+
+);
+
+reg mem_valid_in;
+reg [3*64-1:0] mem_header_in;
+reg mem_ready_in;
+
+
+//Input buffer
+
+reg [64-1:0] buf_in_mem_f [10:0];
+reg [64-1:0] buf_in_mem_next;
+reg [8-1:0] buf_in_counter_f;
+reg [8-1:0] buf_in_counter_next;
+reg [3:0] buf_in_wr_ptr_f;
+reg [3:0] buf_in_wr_ptr_next;
+
+
+reg         sim_memory_write;
+reg [511:0] sim_memory_wr_data;
+reg [63:0]  sim_memory_wr_addr;
+reg [63:0]  sim_memory_rd_addr;
+reg [511:0] sim_memory [SIZE_BYTES/(64*8)-1:0];
+// reg [SIZE_BYTES-1:0] sim_memory;
+
+
+always @ *
+begin
+    noc_ready_in = (buf_in_counter_f == 0) || (buf_in_counter_f < (buf_in_mem_f[0][29:22]+1));
+end
+
+always @ *
+begin
+    if (noc_valid_in && noc_ready_in)
+    begin
+        buf_in_counter_next = buf_in_counter_f + 1;
+    end
+    else if (mem_valid_in && mem_ready_in)
+    begin
+        buf_in_counter_next = 0;
+    end
+    else
+    begin
+        buf_in_counter_next = buf_in_counter_f;
+    end
+end
+
+
+always @ (posedge clk)
+begin
+    if (!rst_n)
+    begin
+        buf_in_counter_f <= 0;
+    end
+    else
+    begin
+        buf_in_counter_f <= buf_in_counter_next;
+    end
+end
+
+always @ *
+begin
+    if (mem_valid_in && mem_ready_in)
+    begin
+        buf_in_wr_ptr_next = 0;
+    end
+    else if (noc_valid_in && noc_ready_in)
+    begin
+        buf_in_wr_ptr_next = buf_in_wr_ptr_f + 1;
+    end
+    else
+    begin
+        buf_in_wr_ptr_next = buf_in_wr_ptr_f;
+    end
+end
+
+
+always @ (posedge clk)
+begin
+    if (!rst_n)
+    begin
+        buf_in_wr_ptr_f <= 0;
+    end
+    else
+    begin
+        buf_in_wr_ptr_f <= buf_in_wr_ptr_next;
+    end
+end
+
+
+always @ *
+begin
+    if (noc_valid_in && noc_ready_in)
+    begin
+        buf_in_mem_next = noc_data_in;
+    end
+    else
+    begin
+        buf_in_mem_next = buf_in_mem_f[buf_in_wr_ptr_f];
+    end
+end
+
+always @ (posedge clk)
+begin
+    if (!rst_n)
+    begin
+        buf_in_mem_f[buf_in_wr_ptr_f] <= 0;
+    end
+    else
+    begin
+        buf_in_mem_f[buf_in_wr_ptr_f] <= buf_in_mem_next;
+    end
+end
+
+
+always @ *
+begin
+    mem_valid_in = (buf_in_counter_f != 0) && (buf_in_counter_f == (buf_in_mem_f[0][29:22]+1));
+end
+
+always @ *
+begin
+    mem_header_in = {buf_in_mem_f[2], buf_in_mem_f[1], buf_in_mem_f[0]};
+end
+
+//Memory read/write
+
+wire [8-1:0] msg_type;
+wire [8-1:0] msg_mshrid;
+wire [3-1:0] msg_data_size;
+wire [40-1:0] msg_addr;
+wire [14-1:0] msg_src_chipid;
+wire [8-1:0] msg_src_x;
+wire [8-1:0] msg_src_y;
+wire [4-1:0] msg_src_fbits;
+
+reg [8-1:0] msg_send_type;
+reg [8-1:0] msg_send_length;
+reg [64-1:0] msg_send_data [7:0];
+reg [64-1:0] mem_temp;
+wire [64*3-1:0] msg_send_header;
+
+
+
+
+l2_decoder decoder(
+    .msg_header         (mem_header_in),
+    .msg_type           (msg_type),
+    .msg_length         (),
+    .msg_mshrid         (msg_mshrid),
+    .msg_data_size      (msg_data_size),
+    .msg_cache_type     (),
+    .msg_subline_vector (),
+    .msg_mesi           (),
+    .msg_l2_miss        (),
+    .msg_subline_id     (),
+    .msg_last_subline   (),
+    .msg_addr           (msg_addr),
+    .msg_src_chipid     (msg_src_chipid),
+    .msg_src_x          (msg_src_x),
+    .msg_src_y          (msg_src_y),
+    .msg_src_fbits      (msg_src_fbits),
+    .msg_sdid           (),
+    .msg_lsid           ()
+);
+
+reg [63:0] write_mask;
+
+always @ *
+begin
+    if (msg_data_size == 3'b001)
+    begin
+        write_mask = 64'hff00000000000000;
+        write_mask = write_mask >> (8*msg_addr[2:0]);
+    end
+    else if (msg_data_size == 3'b010)
+    begin
+        write_mask = 64'hffff000000000000;
+        write_mask = write_mask >> (16*msg_addr[2:1]);
+    end
+    else if (msg_data_size == 3'b011)
+    begin
+        write_mask = 64'hffffffff00000000;
+        write_mask = write_mask >> (32*msg_addr[2]);
+    end
+    else if (msg_data_size == 3'b100)
+    begin
+        write_mask = 64'hffffffffffffffff;
+    end
+    else
+    begin
+        write_mask = 64'h0000000000000000;
+    end
+end
+
+
+always @ *
+begin
+    // initialize to get rid of msim warnings
+    mem_temp = 64'h0;
+    msg_send_length = 8'b0;
+    sim_memory_rd_addr = MEM_BASE;
+    sim_memory_write = 1'b0;
+    sim_memory_wr_addr = MEM_BASE;
+    sim_memory_wr_data = 512'b0;
+    if (mem_valid_in)
+    begin
+        case (msg_type)
+        8'd19:
+        begin
+
+
+
+
+
+
+
+
+
+ // ifdef PITON_DPI
+
+
+
+
+
+
+
+
+
+ // ifndef PITON_SIM_MEMORY
+            sim_memory_rd_addr = {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000} - MEM_BASE;
+            $display("fake_mem_ctrl.v: true read addr: %h", sim_memory_rd_addr);
+            msg_send_data[0] = sim_memory[sim_memory_rd_addr[63:6]][9'b000000000+:64];
+            msg_send_data[1] = sim_memory[sim_memory_rd_addr[63:6]][9'b001000000+:64];
+            msg_send_data[2] = sim_memory[sim_memory_rd_addr[63:6]][9'b010000000+:64];
+            msg_send_data[3] = sim_memory[sim_memory_rd_addr[63:6]][9'b011000000+:64];
+            msg_send_data[4] = sim_memory[sim_memory_rd_addr[63:6]][9'b100000000+:64];
+            msg_send_data[5] = sim_memory[sim_memory_rd_addr[63:6]][9'b101000000+:64];
+            msg_send_data[6] = sim_memory[sim_memory_rd_addr[63:6]][9'b110000000+:64];
+            msg_send_data[7] = sim_memory[sim_memory_rd_addr[63:6]][9'b111000000+:64];
+ // ifndef PITON_SIM_MEMORY
+ // ifdef PITON_DPI
+
+            $display("MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000}, msg_send_data[0]);
+            $display("MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b001000}, msg_send_data[1]);
+            $display("MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b010000}, msg_send_data[2]);
+            $display("MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b011000}, msg_send_data[3]);
+            $display("MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b100000}, msg_send_data[4]);
+            $display("MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b101000}, msg_send_data[5]);
+            $display("MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b110000}, msg_send_data[6]);
+            $display("MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b111000}, msg_send_data[7]);
+
+            msg_send_type = 8'd24;
+            msg_send_length = 8'd8;
+        end
+        8'd20:
+        begin
+
+
+
+
+
+
+
+
+
+ // ifdef PITON_DPI
+
+
+
+
+
+
+
+
+
+ // ifndef PITON_SIM_MEMORY
+            sim_memory_write = 1'b1;
+            sim_memory_wr_addr = {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000} - MEM_BASE;
+            $display("fake_mem_ctrl.v: true write addr: %h", sim_memory_wr_addr);
+            sim_memory_wr_data = {buf_in_mem_f[10], buf_in_mem_f[9], buf_in_mem_f[8], buf_in_mem_f[7], buf_in_mem_f[6], buf_in_mem_f[5], buf_in_mem_f[4], buf_in_mem_f[3]};
+ // ifndef PITON_SIM_MEMORY
+ // ifdef PITON_DPI
+
+            $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000}, buf_in_mem_f[3]);
+            $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b001000}, buf_in_mem_f[4]);
+            $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b010000}, buf_in_mem_f[5]);
+            $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b011000}, buf_in_mem_f[6]);
+            $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b100000}, buf_in_mem_f[7]);
+            $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b101000}, buf_in_mem_f[8]);
+            $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b110000}, buf_in_mem_f[9]);
+            $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b111000}, buf_in_mem_f[10]);
+
+            msg_send_type = 8'd25;
+            msg_send_length = 8'd0;
+        end
+        8'd14:
+        begin
+            $display("Non-cacheable load request, size: %h, address: %h", msg_data_size, msg_addr);
+            msg_send_type = 8'd26;
+            case(msg_data_size)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // ifndef PITON_SIM_MEMORY
+            3'b100: 
+            begin
+
+
+
+
+
+
+
+
+
+ // ifndef PITON_SIM_MEMORY
+            sim_memory_rd_addr = {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000} - MEM_BASE;
+            $display("fake_mem_ctrl.v: true read addr: %h", sim_memory_rd_addr);
+            msg_send_data[0] = sim_memory[sim_memory_rd_addr[63:6]][(msg_addr[5:0]*8)+:64];
+ // ifndef PITON_SIM_MEMORY
+                msg_send_length = 8'd1;
+            end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // ifndef PITON_SIM_MEMORY
+            3'b111: 
+            begin
+
+
+
+
+
+
+
+
+
+
+ // ifndef PITON_SIM_MEMORY
+            sim_memory_rd_addr = {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000} - MEM_BASE;
+            $display("fake_mem_ctrl.v: true read addr: %h", sim_memory_rd_addr);
+            msg_send_data[0] = sim_memory[sim_memory_rd_addr[63:6]][9'b000000000+:64];
+            msg_send_data[1] = sim_memory[sim_memory_rd_addr[63:6]][9'b001000000+:64];
+            msg_send_data[2] = sim_memory[sim_memory_rd_addr[63:6]][9'b010000000+:64];
+            msg_send_data[3] = sim_memory[sim_memory_rd_addr[63:6]][9'b011000000+:64];
+            msg_send_data[4] = sim_memory[sim_memory_rd_addr[63:6]][9'b100000000+:64];
+            msg_send_data[5] = sim_memory[sim_memory_rd_addr[63:6]][9'b101000000+:64];
+            msg_send_data[6] = sim_memory[sim_memory_rd_addr[63:6]][9'b110000000+:64];
+            msg_send_data[7] = sim_memory[sim_memory_rd_addr[63:6]][9'b111000000+:64];
+ // ifndef PITON_SIM_MEMORY
+
+
+
+
+
+
+
+
+
+ // ifndef PITON_DPI
+
+                $display("NC_MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000}, msg_send_data[0]);
+                $display("NC_MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b001000}, msg_send_data[1]);
+                $display("NC_MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b010000}, msg_send_data[2]);
+                $display("NC_MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b011000}, msg_send_data[3]);
+                $display("NC_MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b100000}, msg_send_data[4]);
+                $display("NC_MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b101000}, msg_send_data[5]);
+                $display("NC_MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b110000}, msg_send_data[6]);
+                $display("NC_MemRead: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b111000}, msg_send_data[7]);
+
+                msg_send_length = 8'd8;
+            end
+            endcase
+        end
+        8'd15:
+        begin
+            $display("Non-cacheable store request, size: %h, address: %h", msg_data_size, msg_addr);
+            msg_send_type = 8'd27;
+            msg_send_length = 8'd0;
+            case(msg_data_size)
+            3'b111:
+            begin
+
+
+
+
+
+
+
+
+
+ // ifdef PITON_DPI
+
+
+
+
+
+
+
+
+
+ // ifndef PITON_SIM_MEMORY
+            sim_memory_write = 1'b1;
+            sim_memory_wr_addr = {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000} - MEM_BASE;
+            $display("fake_mem_ctrl.v: true write addr: %h", sim_memory_wr_addr);
+            sim_memory_wr_data = {buf_in_mem_f[10], buf_in_mem_f[9], buf_in_mem_f[8], buf_in_mem_f[7], buf_in_mem_f[6], buf_in_mem_f[5], buf_in_mem_f[4], buf_in_mem_f[3]};
+ // ifndef PITON_SIM_MEMORY
+ // ifdef PITON_DPI
+
+                $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000}, buf_in_mem_f[3]);
+                $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b001000}, buf_in_mem_f[4]);
+                $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b010000}, buf_in_mem_f[5]);
+                $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b011000}, buf_in_mem_f[6]);
+                $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b100000}, buf_in_mem_f[7]);
+                $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b101000}, buf_in_mem_f[8]);
+                $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b110000}, buf_in_mem_f[9]);
+                $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b111000}, buf_in_mem_f[10]);
+
+            end
+            3'b100:
+            begin
+
+
+ // ifdef PITON_DPI
+
+
+ // ifndef PITON_SIM_MEMORY
+            sim_memory_write = 1'b1;
+            sim_memory_wr_addr = {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000} - MEM_BASE;
+            $display("fake_mem_ctrl.v: true write addr: %h", sim_memory_wr_addr);
+            sim_memory_wr_data = (sim_memory[{msg_addr[39:6+8],msg_addr[6+8-1:6]}] & (~(512'hffffffffffffffff << (msg_addr[5:0] * 8)))) | (buf_in_mem_f[3] << (msg_addr[5:0] * 8));
+ // ifndef PITON_SIM_MEMORY
+ // ifdef PITON_DPI
+
+                $display("MemWrite: %h : %h", {{(64-40){1'b0}}, msg_addr[39:6+8],msg_addr[6+8-1:6],6'b000000}, buf_in_mem_f[3]);
+
+            end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // ifndef PITON_SIM_MEMORY
+            endcase
+        end
+        default:
+        begin
+            msg_send_type = 8'd30;
+            msg_send_length = 8'd0;
+        end
+        endcase
+    end
+end
+
+
+
+//generate for (int i = 0; i < (SIZE_BYTES/64; i = i + 1) begin : gen_sim_memory
+//always @(posedge clk) begin
+//    //if (~rst_n) begin
+//    //    sim_memory[i] <= 512'b0;
+//    //end else
+//    if (sim_memory_write & (sim_memory_wr_addr[63:6] == i) begin
+//        sim_memory[i] <= sim_memory_wr_data;
+//    end
+//end
+//end
+
+always @(posedge clk) begin
+    if (sim_memory_write) begin
+        sim_memory[sim_memory_wr_addr[63:6]] <= sim_memory_wr_data;
+    end
+end
+
+integer i;
+initial begin
+    for (i = 0; i < SIZE_BYTES/(64*8); i = i + 1) begin
+        sim_memory[i] = 512'b0;
+    end
+    $readmemh("sim_memory.memh", sim_memory);
+end
+
+ // ifdef PITON_SIM_MEMORY
+
+l2_encoder encoder(
+    .msg_dst_chipid             (msg_src_chipid),
+    .msg_dst_x                  (msg_src_x),
+    .msg_dst_y                  (msg_src_y),
+    .msg_dst_fbits              (msg_src_fbits),
+    .msg_length                 (msg_send_length),
+    .msg_type                   (msg_send_type),
+    .msg_mshrid                 (msg_mshrid),
+    .msg_data_size              ({3{1'b0}}),
+    .msg_cache_type             ({1{1'b0}}),
+    .msg_subline_vector         ({4{1'b0}}),
+    .msg_mesi                   ({2{1'b0}}),
+    .msg_l2_miss                (msg_addr[40-1]),
+    .msg_subline_id             ({2{1'b0}}),
+    .msg_last_subline           ({1{1'b1}}),
+    .msg_addr                   (msg_addr),
+    .msg_src_chipid             ({14{1'b0}}),
+    .msg_src_x                  ({8{1'b0}}),
+    .msg_src_y                  ({8{1'b0}}),
+    .msg_src_fbits              ({4{1'b0}}),
+    .msg_sdid                   ({10{1'b0}}),
+    .msg_lsid                   ({6{1'b0}}),
+    .msg_header                 (msg_send_header)
+);
+
+
+
+//Output buffer
+
+reg [64-1:0] buf_out_mem_f [8:0];
+reg [64-1:0] buf_out_mem_next [8:0];
+reg [8-1:0] buf_out_counter_f;
+reg [8-1:0] buf_out_counter_next;
+reg [3:0] buf_out_rd_ptr_f;
+reg [3:0] buf_out_rd_ptr_next;
+
+always @ *
+begin
+    noc_valid_out = (buf_out_counter_f != 0);
+end
+
+always @ *
+begin
+    mem_ready_in = (buf_out_counter_f == 0);
+end
+
+
+always @ *
+begin
+    if (noc_valid_out && noc_ready_out)
+    begin
+        buf_out_counter_next = buf_out_counter_f - 1;
+    end
+    else if (mem_valid_in && mem_ready_in)
+    begin
+        buf_out_counter_next = msg_send_length + 1;
+    end
+    else
+    begin
+        buf_out_counter_next = buf_out_counter_f;
+    end
+end
+
+always @ (posedge clk)
+begin
+    if (!rst_n)
+    begin
+        buf_out_counter_f <= 0;
+    end
+    else
+    begin
+        buf_out_counter_f <= buf_out_counter_next;
+    end
+end
+
+
+always @ *
+begin
+    if (mem_valid_in && mem_ready_in)
+    begin
+        buf_out_rd_ptr_next = 0;
+    end
+    else if (noc_valid_out && noc_ready_out)
+    begin
+        buf_out_rd_ptr_next = buf_out_rd_ptr_f + 1;
+    end
+    else
+    begin
+        buf_out_rd_ptr_next = buf_out_rd_ptr_f;
+    end
+end
+
+always @ (posedge clk)
+begin
+    if (!rst_n)
+    begin
+        buf_out_rd_ptr_f <= 0;
+    end
+    else
+    begin
+        buf_out_rd_ptr_f <= buf_out_rd_ptr_next;
+    end
+end
+
+
+
+always @ *
+begin
+    if (mem_valid_in && mem_ready_in)
+    begin
+        buf_out_mem_next[0] = msg_send_header[64-1:0];
+        buf_out_mem_next[1] = msg_send_data[0];
+        buf_out_mem_next[2] = msg_send_data[1];
+        buf_out_mem_next[3] = msg_send_data[2];
+        buf_out_mem_next[4] = msg_send_data[3];
+        buf_out_mem_next[5] = msg_send_data[4];
+        buf_out_mem_next[6] = msg_send_data[5];
+        buf_out_mem_next[7] = msg_send_data[6];
+        buf_out_mem_next[8] = msg_send_data[7];
+    end
+    else
+    begin
+        buf_out_mem_next[0] = buf_out_mem_f[0];
+        buf_out_mem_next[1] = buf_out_mem_f[1];
+        buf_out_mem_next[2] = buf_out_mem_f[2];
+        buf_out_mem_next[3] = buf_out_mem_f[3];
+        buf_out_mem_next[4] = buf_out_mem_f[4];
+        buf_out_mem_next[5] = buf_out_mem_f[5];
+        buf_out_mem_next[6] = buf_out_mem_f[6];
+        buf_out_mem_next[7] = buf_out_mem_f[7];
+        buf_out_mem_next[8] = buf_out_mem_f[8];
+    end
+end
+
+always @ (posedge clk)
+begin
+    if (!rst_n)
+    begin
+        buf_out_mem_f[0] <= 0;
+        buf_out_mem_f[1] <= 0;
+        buf_out_mem_f[2] <= 0;
+        buf_out_mem_f[3] <= 0;
+        buf_out_mem_f[4] <= 0;
+        buf_out_mem_f[5] <= 0;
+        buf_out_mem_f[6] <= 0;
+        buf_out_mem_f[7] <= 0;
+        buf_out_mem_f[8] <= 0;
+    end
+    else
+    begin
+        buf_out_mem_f[0] <= buf_out_mem_next[0];
+        buf_out_mem_f[1] <= buf_out_mem_next[1];
+        buf_out_mem_f[2] <= buf_out_mem_next[2];
+        buf_out_mem_f[3] <= buf_out_mem_next[3];
+        buf_out_mem_f[4] <= buf_out_mem_next[4];
+        buf_out_mem_f[5] <= buf_out_mem_next[5];
+        buf_out_mem_f[6] <= buf_out_mem_next[6];
+        buf_out_mem_f[7] <= buf_out_mem_next[7];
+        buf_out_mem_f[8] <= buf_out_mem_next[8];
+    end
+end
+
+
+always @ *
+begin
+    noc_valid_out = (buf_out_counter_f != 0);
+end
+
+always @ *
+begin
+    // Tri: another quick fix for x
+    noc_data_out = 0;
+    if (buf_out_rd_ptr_f < 9)
+        noc_data_out = buf_out_mem_f[buf_out_rd_ptr_f];
+end
+
+
+always @(posedge clk) begin
+    if (noc_valid_in & noc_ready_in) begin
+
+
+
+        $display("FakeMem: input: %h", noc_data_in, $time);
+
+    end
+    if (noc_valid_out & noc_ready_out) begin
+
+
+
+        $display("FakeMem: output %h", noc_data_out, $time);
+
+    end
+end
+ // endif MINIMAL_MONITORING
+
+endmodule
+
+/*
+Copyright (c) 2015 Princeton University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Princeton University nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+//==================================================================================================
+//  Filename      : l2_decoder.v
+//  Created On    : 2014-02-25
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : The message decoder in the L2 cache
+//
+//
+//====================================================================================================
+
+/*
+Copyright (c) 2015 Princeton University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Princeton University nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+//==================================================================================================
+//  Filename      : l2.h.pyv
+//  Created On    : 2014-02-20
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : header file for the L2 cache
+//
+//
+//==================================================================================================
+
+// /home/jbalkind/Documents/openpiton/piton/verif/env/manycore/devices_ariane.xml
+
+
+
+// Input buffer for pipeline1
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Input buffer for pipeline2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Output buffer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// L2 cache configuration
+
+
+
+
+
+
+
+//`define L2_SIZE                  65536
+//`define L2_SIZE_WIDTH            16
+
+
+
+
+
+
+//`define L2_LINE_SIZE             64
+//`define L2_LINE_SIZE_WIDTH       6
+
+
+
+
+
+
+
+
+
+
+
+
+
+//`define L2_WAYS                  4
+//`define L2_WAYS_WIDTH            2
+//`define L2_WAY_0                 2'b00
+//`define L2_WAY_1                 2'b01
+//`define L2_WAY_2                 2'b10
+//`define L2_WAY_3                 2'b11
+
+
+
+
+
+// Tag array
+
+
+
+
+
+
+
+//`define L2_TAG_INDEX_WIDTH      8
+//`define L2_TAG_WIDTH            26
+//`define L2_TAG_WAY_WIDTH        26
+//`define L2_TAG_ARRAY_WIDTH      104
+
+
+// Tag Address decomposition 
+
+
+
+
+//`define L2_TAG_INDEX            13:6
+//`define L2_TAG                  39:14
+
+
+//Data array
+
+
+
+
+
+
+
+
+
+
+
+
+//`define L2_DATA_INDEX_WIDTH         12 
+
+
+
+
+
+
+
+
+// Data Address decomposition 
+
+
+
+
+
+
+
+//Dir array
+
+
+
+//`define L2_DIR_INDEX_WIDTH      10 
+
+
+
+
+
+//State array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Whether the cache line is in Icaches or Dcaches
+
+
+
+
+
+
+
+//`define L2_OWNER_X_WIDTH        3
+//`define L2_OWNER_Y_WIDTH        3
+//`define L2_OWNER_XY             2:0
+//`define L2_OWNER_X              2:0
+//`define L2_OWNER_Y              5:3
+
+
+
+
+//Round Robin selection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// State decomposition 
+
+
+
+
+
+
+
+
+
+
+
+
+//MSHR array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//`define L2_MSHR_CMP_ADDR        13:6
+//`define L2_MSHR_ADDR            39:0
+//`define L2_MSHR_WAY             41:40
+//`define L2_MSHR_MSHRID          49:42
+//`define L2_MSHR_CACHE_TYPE      50
+//`define L2_MSHR_DATA_SIZE       53:51
+//`define L2_MSHR_MSG_TYPE        61:54
+//`define L2_MSHR_L2_MISS         62
+//`define L2_MSHR_SRC_CHIPID      76:63
+//`define L2_MSHR_SRC_X           84:77
+//`define L2_MSHR_SRC_Y           92:85
+//`define L2_MSHR_SRC_FBITS       96:93
+//`define L2_MSHR_SDID            106:97
+//`define L2_MSHR_LSID            112:107      
+//`define L2_MSHR_MISS_LSID       118:113
+//`define L2_MSHR_SMC_MISS        119
+//`define L2_MSHR_RECYCLED        120
+//`define L2_MSHR_INV_FWD_PENDING 121
+
+
+//SMC array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Message destination_type
+
+
+
+
+
+
+
+//L2 public sharer beyond the maximum clump size
+
+
+
+//L2 registers
+
+
+
+//Special addresses
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//L2 core ID
+
+
+
+
+
+//L2 dir array reuse
+
+
+
+
+
+
+
+//Control Signal 
+
+
+
+
+
+
+
+
+//AMO ALU OP macros
+
+
+
+
+
+
+
+
+
+
+
+
+//Control Signal in Stage 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Copyright (c) 2015 Princeton University
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of Princeton University nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//==================================================================================================
+//  Filename      : define.h
+//  Created On    : 2014-02-20
+//  Last Modified : 2018-11-16 17:14:11
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : main header file defining global architecture parameters
+//
+//
+//==================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module l2_decoder(
+
+    input wire [192-1:0] msg_header,
+
+    output reg [8-1:0] msg_type,
+    output reg [8-1:0] msg_length,
+    output reg [8-1:0] msg_mshrid,
+    output reg [3-1:0] msg_data_size,
+    output reg [1-1:0] msg_cache_type,
+    output reg [4-1:0] msg_subline_vector,
+    output reg [2-1:0] msg_mesi,
+    output reg [1-1:0] msg_l2_miss,
+    output reg [2-1:0] msg_subline_id,
+    output reg [1-1:0] msg_last_subline,
+    output reg [40-1:0] msg_addr,
+    output reg [14-1:0] msg_src_chipid,
+    output reg [8-1:0] msg_src_x,
+    output reg [8-1:0] msg_src_y,
+    output reg [4-1:0] msg_src_fbits,
+    output reg [10-1:0] msg_sdid,
+    output reg [6-1:0] msg_lsid
+);
+
+always @ *
+begin
+    msg_type = msg_header[21:14];
+    msg_length = msg_header[29:22];
+    msg_mshrid = msg_header[13:6];
+    msg_data_size = msg_header[74:72];
+    msg_cache_type = msg_header[75];
+    msg_subline_vector = msg_header[79:76];
+    msg_mesi = msg_header[5:4];
+    msg_l2_miss = msg_header[3];
+    msg_subline_id = msg_header[2:1];
+    msg_last_subline = msg_header[0];
+    msg_addr = msg_header[119:80];
+    msg_src_chipid = msg_header[191:178];
+    msg_src_x = msg_header[177:170];
+    msg_src_y = msg_header[169:162];
+    msg_src_fbits = msg_header[161:158];
+    msg_sdid = msg_header[157:148];
+    msg_lsid = msg_header[147:142];
+end
+
+endmodule
+/*
+Copyright (c) 2015 Princeton University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Princeton University nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+//==================================================================================================
+//  Filename      : l2_encoder.v
+//  Created On    : 2014-03-03
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : The message encoder in the L2 cache
+//
+//
+//====================================================================================================
+
+
+/*
+Copyright (c) 2015 Princeton University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Princeton University nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+//==================================================================================================
+//  Filename      : l2.h.pyv
+//  Created On    : 2014-02-20
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : header file for the L2 cache
+//
+//
+//==================================================================================================
+
+// /home/jbalkind/Documents/openpiton/piton/verif/env/manycore/devices_ariane.xml
+
+
+
+// Input buffer for pipeline1
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Input buffer for pipeline2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Output buffer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// L2 cache configuration
+
+
+
+
+
+
+
+//`define L2_SIZE                  65536
+//`define L2_SIZE_WIDTH            16
+
+
+
+
+
+
+//`define L2_LINE_SIZE             64
+//`define L2_LINE_SIZE_WIDTH       6
+
+
+
+
+
+
+
+
+
+
+
+
+
+//`define L2_WAYS                  4
+//`define L2_WAYS_WIDTH            2
+//`define L2_WAY_0                 2'b00
+//`define L2_WAY_1                 2'b01
+//`define L2_WAY_2                 2'b10
+//`define L2_WAY_3                 2'b11
+
+
+
+
+
+// Tag array
+
+
+
+
+
+
+
+//`define L2_TAG_INDEX_WIDTH      8
+//`define L2_TAG_WIDTH            26
+//`define L2_TAG_WAY_WIDTH        26
+//`define L2_TAG_ARRAY_WIDTH      104
+
+
+// Tag Address decomposition 
+
+
+
+
+//`define L2_TAG_INDEX            13:6
+//`define L2_TAG                  39:14
+
+
+//Data array
+
+
+
+
+
+
+
+
+
+
+
+
+//`define L2_DATA_INDEX_WIDTH         12 
+
+
+
+
+
+
+
+
+// Data Address decomposition 
+
+
+
+
+
+
+
+//Dir array
+
+
+
+//`define L2_DIR_INDEX_WIDTH      10 
+
+
+
+
+
+//State array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Whether the cache line is in Icaches or Dcaches
+
+
+
+
+
+
+
+//`define L2_OWNER_X_WIDTH        3
+//`define L2_OWNER_Y_WIDTH        3
+//`define L2_OWNER_XY             2:0
+//`define L2_OWNER_X              2:0
+//`define L2_OWNER_Y              5:3
+
+
+
+
+//Round Robin selection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// State decomposition 
+
+
+
+
+
+
+
+
+
+
+
+
+//MSHR array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//`define L2_MSHR_CMP_ADDR        13:6
+//`define L2_MSHR_ADDR            39:0
+//`define L2_MSHR_WAY             41:40
+//`define L2_MSHR_MSHRID          49:42
+//`define L2_MSHR_CACHE_TYPE      50
+//`define L2_MSHR_DATA_SIZE       53:51
+//`define L2_MSHR_MSG_TYPE        61:54
+//`define L2_MSHR_L2_MISS         62
+//`define L2_MSHR_SRC_CHIPID      76:63
+//`define L2_MSHR_SRC_X           84:77
+//`define L2_MSHR_SRC_Y           92:85
+//`define L2_MSHR_SRC_FBITS       96:93
+//`define L2_MSHR_SDID            106:97
+//`define L2_MSHR_LSID            112:107      
+//`define L2_MSHR_MISS_LSID       118:113
+//`define L2_MSHR_SMC_MISS        119
+//`define L2_MSHR_RECYCLED        120
+//`define L2_MSHR_INV_FWD_PENDING 121
+
+
+//SMC array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Message destination_type
+
+
+
+
+
+
+
+//L2 public sharer beyond the maximum clump size
+
+
+
+//L2 registers
+
+
+
+//Special addresses
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//L2 core ID
+
+
+
+
+
+//L2 dir array reuse
+
+
+
+
+
+
+
+//Control Signal 
+
+
+
+
+
+
+
+
+//AMO ALU OP macros
+
+
+
+
+
+
+
+
+
+
+
+
+//Control Signal in Stage 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Copyright (c) 2015 Princeton University
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of Princeton University nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL PRINCETON UNIVERSITY BE LIABLE FOR ANY
+// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//==================================================================================================
+//  Filename      : define.h
+//  Created On    : 2014-02-20
+//  Last Modified : 2018-11-16 17:14:11
+//  Revision      :
+//  Author        : Yaosheng Fu
+//  Company       : Princeton University
+//  Email         : yfu@princeton.edu
+//
+//  Description   : main header file defining global architecture parameters
+//
+//
+//==================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module l2_encoder(
+
+    input wire [14-1:0] msg_dst_chipid,
+    input wire [8-1:0] msg_dst_x,
+    input wire [8-1:0] msg_dst_y,
+    input wire [4-1:0] msg_dst_fbits,
+    input wire [8-1:0] msg_length,
+    input wire [8-1:0] msg_type,
+    input wire [8-1:0] msg_mshrid,
+    input wire [3-1:0] msg_data_size,
+    input wire [1-1:0] msg_cache_type,
+    input wire [4-1:0] msg_subline_vector,
+    input wire [2-1:0] msg_mesi,
+    input wire [1-1:0] msg_l2_miss,
+    input wire [1-1:0] msg_last_subline,
+    input wire [2-1:0] msg_subline_id,
+    input wire [40-1:0] msg_addr,
+    input wire [14-1:0] msg_src_chipid,
+    input wire [8-1:0] msg_src_x,
+    input wire [8-1:0] msg_src_y,
+    input wire [4-1:0] msg_src_fbits,
+    input wire [10-1:0] msg_sdid,
+    input wire [6-1:0] msg_lsid,
+
+
+    output reg [192-1:0] msg_header
+);
+
+always @ *
+begin
+    msg_header = {msg_src_chipid,
+                  msg_src_x,
+                  msg_src_y,
+                  msg_src_fbits,
+                  msg_sdid,
+                  msg_lsid,
+                  14'd0,
+
+                  8'd0,
+                  msg_addr,
+                  msg_subline_vector,
+                  msg_cache_type,
+                  msg_data_size,
+                  8'd0,
+
+                  msg_dst_chipid,
+                  msg_dst_x,
+                  msg_dst_y,
+                  msg_dst_fbits,
+                  msg_length,
+                  msg_type,
+                  msg_mshrid,
+                  msg_mesi,
+                  msg_l2_miss,
+                  msg_subline_id,
+                  msg_last_subline};
+end
+
+endmodule
+
+module strb2mask (
+    input wire clk,
+    input wire rst,
+    input wire [7:0] m_axi_wstrb,
+    output reg [7:0] pmesh_mask, 
+    input wire s_channel_valid,
+    output wire s_channel_ready,
+    input wire d_channel_ready,
+    output wire d_channel_valid, 
+    output wire split
+);
+
+
+localparam BASE_1B = 8'b1000_0000;
+localparam BASE_2B = 8'b1100_0000;
+localparam BASE_4B = 8'b1111_0000;
+localparam BASE_8B = 8'b1111_1111;
+
+reg [7:0] source_q;
+reg [7:0] source_d;
+reg [7:0] input_data;
+reg [7:0] target [14:0];
+reg [14:0] all_match; 
+reg [14:0] part_match;
+reg [7:0] output_mask;
+reg [7:0] reverse_source;
+reg [7:0] reverse_target [14:0];
+
+wire need_split;
+wire tx;
+wire rx;
+reg tx_delay_stage_1;
+reg last_split;
+
+integer i;
+integer j, k;
+
+// FSM for destination valid control 
+localparam NOT_VALID = 0;
+localparam VALID = 1;
+reg valid_state;
+reg valid_state_next;
+
+//FSM for source ready control
+reg [1:0] ready_state, next_ready_state;
+localparam NOT_READY = 0;
+localparam READY = 1;
+localparam WAIT = 2;
+
+assign tx = s_channel_ready & s_channel_valid;
+assign rx = d_channel_ready & d_channel_valid;
+
+assign split = (((last_split) & (!need_split)) | (need_split));
+assign need_split = (|part_match) & ~(|all_match);
+
+always@ (*) begin
+    source_d = source_q;
+end
+
+always@ (*) begin // for split output 
+    reverse_source[0] = source_q[7];
+    reverse_source[1] = source_q[6];
+    reverse_source[2] = source_q[5];
+    reverse_source[3] = source_q[4];
+    reverse_source[4] = source_q[3];
+    reverse_source[5] = source_q[2];
+    reverse_source[6] = source_q[1];
+    reverse_source[7] = source_q[0];
+    for (i = 0; i < 15; i = i + 1) begin
+        reverse_target[i][0] = target[i][7];
+        reverse_target[i][1] = target[i][6];
+        reverse_target[i][2] = target[i][5];
+        reverse_target[i][3] = target[i][4];
+        reverse_target[i][4] = target[i][3];
+        reverse_target[i][5] = target[i][2];
+        reverse_target[i][6] = target[i][1];
+        reverse_target[i][7] = target[i][0];
+    end
+end
+
+always@ (*) begin  // target generate
+    target[0] = BASE_8B >> 0; 
+    target[1] = BASE_4B >> 4; 
+    target[2] = BASE_2B >> 6; 
+    target[3] = BASE_1B >> 7; 
+    target[4] = BASE_1B >> 6;
+    target[5] = BASE_2B >> 4;
+    target[6] = BASE_1B >> 5;
+    target[7] = BASE_1B >> 4;
+    target[8] = BASE_4B >> 0;
+    target[9] = BASE_2B >> 2;
+    target[10] = BASE_1B >> 3;
+    target[11] = BASE_1B >> 2;
+    target[12] = BASE_2B >> 0;
+    target[13] = BASE_1B >> 1;
+    target[14] = BASE_1B >> 0;
+    for (j = 0; j < 15; j = j + 1) begin
+        all_match[j] = (source_q == target[j]);
+    end
+end
+
+always@ (*) begin 
+    for (k = 0; k < 15; k = k + 1) begin
+        part_match[k] = (source_q > target[k]) & (reverse_source > reverse_target[k]);
+    end
+end
+
+always@ (*) begin
+    if ((|all_match)) begin
+        input_data = m_axi_wstrb;
+    end
+    else if ((|part_match))begin
+        casex (part_match)
+            15'b????_????_????_??1: begin input_data = source_q - target[0]; end
+            15'b????_????_????_?1?: begin input_data = source_q - target[1]; end
+            15'b????_????_????_1??: begin input_data = source_q - target[2]; end
+            15'b????_????_???1_???: begin input_data = source_q - target[3]; end
+            15'b????_????_??1?_???: begin input_data = source_q - target[4]; end
+            15'b????_????_?1??_???: begin input_data = source_q - target[5]; end
+            15'b????_????_1???_???: begin input_data = source_q - target[6]; end
+            15'b????_???1_????_???: begin input_data = source_q - target[7]; end
+            15'b????_??1?_????_???: begin input_data = source_q - target[8]; end
+            15'b????_?1??_????_???: begin input_data = source_q - target[9]; end
+            15'b????_1???_????_???: begin input_data = source_q - target[10]; end
+            15'b???1_????_????_???: begin input_data = source_q - target[11]; end
+            15'b??1?_????_????_???: begin input_data = source_q - target[12]; end
+            15'b?1??_????_????_???: begin input_data = source_q - target[13]; end
+            15'b1???_????_????_???: begin input_data = source_q - target[14]; end
+            default:  begin input_data = source_q; end
+        endcase
+    end
+    else begin
+        input_data = source_q;
+    end
+end
+
+always@ (*) begin
+    if ((|all_match)) begin
+         casex (all_match)
+            15'b????_????_????_??1: output_mask = target[0];
+            15'b????_????_????_?1?: output_mask = target[1];
+            15'b????_????_????_1??: output_mask = target[2];
+            15'b????_????_???1_???: output_mask = target[3];
+            15'b????_????_??1?_???: output_mask = target[4];
+            15'b????_????_?1??_???: output_mask = target[5];
+            15'b????_????_1???_???: output_mask = target[6];
+            15'b????_???1_????_???: output_mask = target[7];
+            15'b????_??1?_????_???: output_mask = target[8];
+            15'b????_?1??_????_???: output_mask = target[9];
+            15'b????_1???_????_???: output_mask = target[10];
+            15'b???1_????_????_???: output_mask = target[11];
+            15'b??1?_????_????_???: output_mask = target[12];
+            15'b?1??_????_????_???: output_mask = target[13];
+            15'b1???_????_????_???: output_mask = target[14];
+            default:  output_mask = BASE_4B;
+        endcase
+    end
+    else if ((|part_match)) begin
+        casex (part_match)
+            15'b????_????_????_??1: begin output_mask = target[0];end
+            15'b????_????_????_?1?: begin output_mask = target[1];end
+            15'b????_????_????_1??: begin output_mask = target[2];end
+            15'b????_????_???1_???: begin output_mask = target[3];end
+            15'b????_????_??1?_???: begin output_mask = target[4];end
+            15'b????_????_?1??_???: begin output_mask = target[5];end
+            15'b????_????_1???_???: begin output_mask = target[6];end
+            15'b????_???1_????_???: begin output_mask = target[7];end
+            15'b????_??1?_????_???: begin output_mask = target[8];end
+            15'b????_?1??_????_???: begin output_mask = target[9];end
+            15'b????_1???_????_???: begin output_mask = target[10];end
+            15'b???1_????_????_???: begin output_mask = target[11];end
+            15'b??1?_????_????_???: begin output_mask = target[12];end
+            15'b?1??_????_????_???: begin output_mask = target[13];end
+            15'b1???_????_????_???: begin output_mask = target[14];end
+            default:  begin output_mask = BASE_4B; end
+        endcase
+    end
+    else output_mask = pmesh_mask;
+end
+
+
+// FSN for output valid
+always@(posedge clk) begin
+    if (rst) valid_state <= NOT_VALID;
+    else valid_state <= valid_state_next;
+end
+
+always@ (*) begin
+  if (valid_state == NOT_VALID) begin
+      if (tx_delay_stage_1) valid_state_next = VALID;
+      else valid_state_next = valid_state;
+  end
+  else if (valid_state == VALID) begin
+      if (tx_delay_stage_1| split) valid_state_next = VALID;
+      else if (d_channel_ready) valid_state_next = NOT_VALID;
+      else valid_state_next = valid_state;
+  end
+end
+
+assign d_channel_valid = (valid_state == VALID);
+
+
+always@(posedge clk) begin
+    if (rst)begin
+        tx_delay_stage_1 <= 0;
+        last_split <= 0;
+
+    end
+    else begin
+        tx_delay_stage_1 <= tx;
+        last_split <= need_split;
+    end
+end
+
+always@ (posedge clk) begin
+    if (rst) ready_state <= NOT_READY;
+    else ready_state <= next_ready_state;
+end
+
+always@(*) begin
+    if (ready_state == NOT_READY) begin
+        if (d_channel_ready && ~need_split) next_ready_state = READY;
+        else next_ready_state = NOT_READY;
+    end
+    else if (ready_state == READY) begin
+        if (tx) next_ready_state = WAIT;
+        else next_ready_state = READY;
+    end
+    else if (ready_state == WAIT) begin
+        if (rx) next_ready_state = NOT_READY;
+        else next_ready_state = WAIT;
+    end
+    else next_ready_state = ready_state;
+end
+
+assign s_channel_ready = (ready_state == READY) ? 1'b1 : 1'b0;
+
+always@ (posedge clk) begin 
+    if (rst) pmesh_mask <= BASE_4B;
+    else pmesh_mask <= output_mask;
+end
+
+always@ (posedge clk) begin
+    if (rst) source_q <= BASE_4B;
+    else if (tx | (need_split & rx)) source_q <= input_data;
+    else source_q <= source_d;
+end
+
+endmodule 
+
+`timescale 1ns/1ps
+
+
+module tb_axi_responder #(
+  parameter ADDR_WIDTH          = 64,
+  parameter DATA_WIDTH          = 64,
+  parameter STROBE_WIDTH        = (DATA_WIDTH / 8)
+)(
+
+input                               clk,
+input                               rst,
+
+//Write Address Channel
+input                               AXIML_AWVALID,
+input       [ADDR_WIDTH - 1: 0]     AXIML_AWADDR,
+output                              AXIML_AWREADY,
+
+//Write Data Channel
+input                               AXIML_WVALID,
+output                              AXIML_WREADY,
+input       [STROBE_WIDTH - 1:0]    AXIML_WSTRB,
+input       [DATA_WIDTH - 1: 0]     AXIML_WDATA,
+
+//Write Response Channel
+output                              AXIML_BVALID,
+input                               AXIML_BREADY,
+output      [1:0]                   AXIML_BRESP,
+
+//Read Address Channel
+input                               AXIML_ARVALID,
+output                              AXIML_ARREADY,
+input       [ADDR_WIDTH - 1: 0]     AXIML_ARADDR,
+
+//Read Data Channel
+output                              AXIML_RVALID,
+input                               AXIML_RREADY,
+output      [1:0]                   AXIML_RRESP,
+output      [DATA_WIDTH - 1: 0]     AXIML_RDATA
+
+);
+
+
+//Local Parameters
+//Registers
+
+reg               r_rst;
+reg [7:0] 	  test_id         = 0;
+
+//Workaround for weird icarus simulator bug
+always @ (*)      r_rst           = rst;
+
+wire bridge_mem_val;
+wire [63:0] bridge_mem_dat;
+wire bridge_mem_rdy;
+
+wire mem_bridge_val;
+wire [63:0] mem_bridge_dat;
+wire mem_bridge_rdy;
+
+//submodules
+axilite_noc_bridge #(
+) dut (
+  .clk          (clk            ),
+  .rst          (r_rst          ),
+
+
+  .m_axi_awvalid    (AXIML_AWVALID  ),
+  .m_axi_awaddr     (AXIML_AWADDR   ),
+  .m_axi_awready    (AXIML_AWREADY  ),
+
+
+  .m_axi_wvalid     (AXIML_WVALID   ),
+  .m_axi_wready     (AXIML_WREADY   ),
+  .m_axi_wstrb      (AXIML_WSTRB    ),
+  .m_axi_wdata      (AXIML_WDATA    ),
+
+
+  .m_axi_bvalid     (AXIML_BVALID   ),
+  .m_axi_bready     (AXIML_BREADY   ),
+  .m_axi_bresp      (AXIML_BRESP    ),
+
+
+  .m_axi_arvalid    (AXIML_ARVALID  ),
+  .m_axi_arready    (AXIML_ARREADY  ),
+  .m_axi_araddr     (AXIML_ARADDR   ),
+
+
+  .m_axi_rvalid     (AXIML_RVALID   ),
+  .m_axi_rready     (AXIML_RREADY   ),
+  .m_axi_rresp      (AXIML_RRESP    ),
+  .m_axi_rdata      (AXIML_RDATA    ),
+
+  .src_chipid       (14'b0),
+  .src_xpos         (8'b0),
+  .src_ypos         (8'b0),
+  .src_fbits        (4'b0),
+
+  .dest_chipid      (14'b0),
+  .dest_xpos        (8'b0),
+  .dest_ypos        (8'b0),
+  .dest_fbits       (4'b0),
+
+  .noc2_valid_in    (1'b0),
+  .noc2_data_in     (64'b0),
+  .noc2_ready_out   (),
+
+  .noc2_valid_out   (bridge_mem_val),
+  .noc2_data_out    (bridge_mem_dat),
+  .noc2_ready_in    (bridge_mem_rdy),
+
+  .noc3_valid_in    (mem_bridge_val),
+  .noc3_data_in     (mem_bridge_dat),
+  .noc3_ready_out   (mem_bridge_rdy),
+
+  .noc3_valid_out   (),
+  .noc3_data_out    (),
+  .noc3_ready_in    (1'b0)
+);
+
+fake_mem_ctrl fake_mem_ctrl (
+  .clk              (clk),
+  .rst_n            (~r_rst),
+
+  .noc_valid_in     (bridge_mem_val),
+  .noc_data_in      (bridge_mem_dat),
+  .noc_ready_in     (bridge_mem_rdy),
+
+  .noc_valid_out    (mem_bridge_val),
+  .noc_data_out     (mem_bridge_dat),
+  .noc_ready_out    (mem_bridge_rdy)
+);
+
+//asynchronus logic
+//synchronous logic
+
+ // traced differently
+  initial begin
+    $dumpfile ("design.vcd");
+    $dumpvars(0, tb_axi_responder);
+  end
+
+
+endmodule

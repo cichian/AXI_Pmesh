@@ -305,6 +305,7 @@ assign wdata_fifo_ren = (noc_store_done && !wdata_fifo_empty);
 
 // FIFO IO
 wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] wstrb_fifo_out;
+wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] fifo_out_mux;
 wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] wstrb_fifo_wdata; 
 
 wire wstrb_fifo_full;
@@ -314,7 +315,12 @@ wire wstrb_fifo_ren;
 wire wstrb_fifo_wval;
 
 // control intreface signal
-wire [7:0] pmesh_mask;
+//wire [7:0] pmesh_mask;
+wire [2:0] pmesh_data_size;
+wire [5:0] pmesh_addr;
+
+reg[2:0] buf_pmesh_data_size;
+reg [5:0] buf_pmesh_addr;
 
 // input side 
 wire wstrb_fifoside_valid;
@@ -324,17 +330,27 @@ wire wstrb_fifoside_ready;
 wire wstrb_outputside_valid;
 wire wstrb_outputside_ready;
 
+localparam IDLE = 0;
+localparam VALID = 1;
+localparam WAIT = 2;
+
+reg [1:0] fifo_valid_state;
+reg [1:0] fifo_valid_next_state; 
+
 
 strb2mask strb2mask_ins (
     .clk (clk),
     .rst (rst),
-    .m_axi_wstrb (wstrb_fifo_out),
-    .i_valid (wstrb_fifoside_valid),
-    .pmesh_mask(pmesh_mask), 
-    .o_ready(wstrb_fifoside_ready),
-    .o_valid(wstrb_outputside_valid), 
-    .i_ready(wstrb_outputside_ready)
+    .m_axi_wstrb (fifo_out_mux),
+    .pmesh_data_size (pmesh_data_size),
+    .pmesh_addr (pmesh_addr), 
+    .s_channel_valid (wstrb_fifoside_valid),
+    .s_channel_ready(wstrb_fifoside_ready),
+    .d_channel_ready(wstrb_outputside_ready), 
+    .d_channel_valid(wstrb_outputside_valid)
 );
+
+assign fifo_out_mux = (wstrb_fifo_empty) ? 8'b1111_1111 : wstrb_fifo_out;
 
 
 sync_fifo #(
@@ -352,12 +368,48 @@ sync_fifo #(
 	.reset(rst)
 );
 
+
 assign wstrb_fifo_ren = (noc_store_done && !wstrb_fifo_empty);
 assign wstrb_fifo_wval = m_axi_wvalid && m_axi_wready;
 assign wstrb_fifo_wdata = m_axi_wstrb;
 
-assign wstrb_fifoside_valid = (fifo_has_packet) &&  (type_fifo_out == `MSG_TYPE_STORE);
-assign wstrb_outputside_ready = (noc_cnt == 3'b010);
+assign wstrb_outputside_ready = (flit_state == 3'd1) && (type_fifo_out == `MSG_TYPE_STORE);
+
+
+
+
+
+//valid state machine 
+always@ (posedge clk) begin
+    if (rst) begin
+        fifo_valid_state <= IDLE;
+    end
+    else begin
+        fifo_valid_state <= fifo_valid_next_state;
+    end
+end
+//state transfer logic 
+always@ (*) begin
+    if (fifo_valid_state == IDLE) begin
+        if (fifo_has_packet && type_fifo_out == `MSG_TYPE_STORE) begin
+            fifo_valid_next_state = VALID;
+        end
+        else fifo_valid_next_state = fifo_valid_state;
+    end
+    else if (fifo_valid_state == VALID) begin
+        if (wstrb_fifoside_ready) fifo_valid_next_state = WAIT;
+        else fifo_valid_next_state = fifo_valid_state;
+    end
+    else if (fifo_valid_state == WAIT) begin
+        if (noc_store_done) fifo_valid_next_state = IDLE;
+        else fifo_valid_next_state = fifo_valid_state;
+    end
+    else fifo_valid_next_state = fifo_valid_state;
+end
+
+assign wstrb_fifoside_valid = (fifo_valid_state == VALID);
+
+
 
 
 
@@ -387,9 +439,10 @@ assign araddr_fifo_ren = (noc_load_done && !araddr_fifo_empty);
 */
 `define MIN_NOC_DATA_WIDTH      64 // 8 Bytes
 `define NOC_HDR_LEN             3
-`define MSG_STATE_IDLE          2'd0
-`define MSG_STATE_HEADER        2'd1
-`define MSG_STATE_NOC_DATA      2'd2
+`define MSG_STATE_IDLE          3'd0
+`define MSG_STATE_WAIT_STRB     3'd1
+`define MSG_STATE_HEADER        3'd2
+`define MSG_STATE_NOC_DATA      3'd3
 
 wire                                    fifo_has_packet;
 wire                                    noc_store_done;
@@ -404,7 +457,8 @@ reg [2:0]                               noc_cnt;
 assign fifo_has_packet = (type_fifo_out == `MSG_TYPE_STORE) ? (!awaddr_fifo_empty && !wdata_fifo_empty && !wstrb_fifo_empty) :
                            (type_fifo_out == `MSG_TYPE_LOAD) ? !araddr_fifo_empty : 1'b0;
 
-assign noc_store_done = noc_last_data && type_fifo_out == `MSG_TYPE_STORE;
+assign noc_store_done = noc_last_data && type_fifo_out == `MSG_TYPE_STORE && ~wstrb_outputside_valid;
+//assign noc_store_done = noc_last_data && type_fifo_out == `MSG_TYPE_STORE
 assign noc_load_done = noc_last_header && type_fifo_out == `MSG_TYPE_LOAD;
 
 localparam NOC_PAYLOAD_LEN = (AXI_LITE_DATA_WIDTH < `MIN_NOC_DATA_WIDTH) ?
@@ -436,20 +490,23 @@ begin
         `MSG_TYPE_STORE: begin
             msg_type = `MSG_TYPE_NC_STORE_REQ; // axilite peripheral is writing to the memory?
             msg_length = 2'd2 + NOC_PAYLOAD_LEN; // 2 extra headers + 1 data
-            msg_data_size = `MSG_DATA_SIZE_8B; // fix it for now
-            msg_address = {{`MSG_ADDR_WIDTH-`PHY_ADDR_WIDTH{1'b0}}, awaddr_fifo_out[`PHY_ADDR_WIDTH-1:0]};
+            msg_data_size = buf_pmesh_data_size; // fix it for now
+            //msg_data_size = 3'b001;
+            msg_address = {{`MSG_ADDR_WIDTH-`PHY_ADDR_WIDTH{1'b0}}, awaddr_fifo_out[`PHY_ADDR_WIDTH-1:6],buf_pmesh_addr};
         end
 
         `MSG_TYPE_LOAD: begin
             msg_type = `MSG_TYPE_NC_LOAD_REQ; // axilite peripheral is reading from the memory?
             msg_length = 2'd2; // only 2 extra headers
             msg_data_size = `MSG_DATA_SIZE_8B; // fix it for now. 
+            //msg_data_size = 3'b001;
             msg_address = {{`MSG_ADDR_WIDTH-`PHY_ADDR_WIDTH{1'b0}}, araddr_fifo_out[`PHY_ADDR_WIDTH-1:0]};
         end
         
         default: begin
             msg_length = 2'b0;
             msg_data_size = `MSG_DATA_SIZE_8B;
+            //msg_data_size = 3'b001;
         end
     endcase
 end
@@ -461,7 +518,18 @@ begin
     end
     else begin
         noc_cnt <= (noc_last_header | noc_last_data)  ? 3'b0 :
-                (fifo_has_packet && noc2_ready_in) ? noc_cnt + 1 : noc_cnt;          
+                    (fifo_has_packet && noc2_ready_in) ? noc_cnt + 1 : noc_cnt;
+    end
+end
+
+always@(posedge clk) begin
+    if (rst) begin
+        buf_pmesh_addr <= 0;
+        buf_pmesh_data_size <= 0;
+    end
+    else if ((flit_state == `MSG_STATE_WAIT_STRB) & (wstrb_outputside_ready & wstrb_outputside_valid)) begin
+        buf_pmesh_addr <= pmesh_addr;
+        buf_pmesh_data_size <= pmesh_data_size;
     end
 end
 
@@ -477,6 +545,8 @@ begin
     end
 end
 
+
+
 always @(posedge clk)
 begin
     if (rst) begin
@@ -485,10 +555,16 @@ begin
     else begin
         case (flit_state)
             `MSG_STATE_IDLE: begin
-                if (fifo_has_packet && noc2_ready_in )
+                if ((fifo_has_packet && type_fifo_out == `MSG_TYPE_STORE) && noc2_ready_in)
+                    //flit_state <= `MSG_STATE_HEADER;
+                    flit_state <= `MSG_STATE_WAIT_STRB;
+                else if ((fifo_has_packet && type_fifo_out == `MSG_TYPE_LOAD) && noc2_ready_in)
                     flit_state <= `MSG_STATE_HEADER;
             end
-
+            `MSG_STATE_WAIT_STRB:begin
+                if (wstrb_outputside_ready & wstrb_outputside_valid)
+                    flit_state <= `MSG_STATE_HEADER;
+            end
             `MSG_STATE_HEADER: begin
                 if (noc_last_header && type_fifo_out == `MSG_TYPE_STORE)
                     flit_state <= `MSG_STATE_NOC_DATA;
@@ -499,6 +575,8 @@ begin
             `MSG_STATE_NOC_DATA: begin
                 if (noc_store_done)
                     flit_state <= `MSG_STATE_IDLE;
+                else 
+                    flit_state <= `MSG_STATE_WAIT_STRB;
             end
         endcase
     end

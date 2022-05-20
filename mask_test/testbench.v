@@ -24,14 +24,20 @@ module testbench();
 reg clk;
 reg rst;
 reg [7:0] m_axi_wstrb;
+wire [7:0] data_size;
+wire [2:0] addr;
+
 reg [7:0] input_array [3:0];
-wire [7:0] pmesh_mask;
-wire o_ready;
 reg [1:0] counter;
-reg valid;
-wire o_valid;
-reg [7:0] data_fetch; 
-reg ready;
+
+
+wire s_channel_valid;
+wire s_channel_ready;
+wire d_channel_ready;
+wire d_channel_valid;
+
+reg fifo_has_packet;
+
 integer i;
 
 localparam BASE_1B = 8'b1000_0000;
@@ -39,17 +45,24 @@ localparam BASE_2B = 8'b1100_0000;
 localparam BASE_4B = 8'b1111_0000;
 localparam BASE_8B = 8'b1111_1111;
 
+localparam NOT_VALID = 0;
+localparam VALID = 1;
+reg state, next_state;
+
+reg [1:0] fake_ready_state, fake_ready_next_state;
 
 strb2mask ins1
 (
     .rst (rst),
     .clk (clk),
     .m_axi_wstrb (m_axi_wstrb),
-    .pmesh_mask (pmesh_mask),
-    .o_ready (o_ready),
-    .i_valid (valid),
-    .o_valid (o_valid),
-    .i_ready (ready)
+    //.pmesh_mask (pmesh_mask),
+    .pmesh_data_size (data_size),
+    .pmesh_addr (addr),
+    .s_channel_ready (s_channel_ready),
+    .s_channel_valid (s_channel_valid),
+    .d_channel_valid (d_channel_valid),
+    .d_channel_ready (d_channel_ready)
 );
 
 initial begin
@@ -63,56 +76,95 @@ initial begin
     $display("dump start");
     $dumpfile("test.vcd");
     $dumpvars;
-    #300 $finish;
+    #1000 $finish;
     $display("dump finish");
 end
 
 
+
+// input counter control
 always@ (posedge clk) begin
-    if (rst) begin 
-        m_axi_wstrb <= BASE_8B;
-        counter <= 0;
-        valid <= 1;
-    end
-    else if (o_ready & valid) begin
-        valid <= valid;
-        m_axi_wstrb <= input_array[counter];
-        counter <= counter + 1;
-    end
-    else begin
-        counter <= counter;
-        m_axi_wstrb <= m_axi_wstrb;
-        valid <= valid;
-    end
+    if (rst) counter <= 0;
+    else if (s_channel_ready & s_channel_valid) counter <= counter + 1;
+    else counter <= counter;
 end
 
-always@ (posedge clk) begin
-    if (rst) ready <= 1;
-    else ready <= ~ready;
-    
+always@(*) begin
+    m_axi_wstrb = input_array[counter];
 end
 
+
+
+// valid control state machine 
+
+assign s_channel_valid = (state == VALID);
 always@(posedge clk) begin
-    if (rst) begin
-        data_fetch<= 8'b0;
-    end
-    else if (o_valid) begin
-        data_fetch <= pmesh_mask;
-    end
+    if (rst) state <= NOT_VALID;
+    else state <= next_state;
 end
+
+always@(*) begin
+    if (fifo_has_packet) next_state <= VALID;
+    else if (~fifo_has_packet) next_state <= NOT_VALID;
+end
+
+
+//ready control
+
+always@ (posedge clk) begin
+    if (rst) fake_ready_state <= 2'b00;
+    else fake_ready_state <= fake_ready_next_state;
+end
+
+always@ (*) begin
+    if (fake_ready_state == 2'b00)
+        fake_ready_next_state = 2'b01;
+    else if (fake_ready_state == 2'b01)
+        fake_ready_next_state = 2'b10;
+    else if (fake_ready_state == 2'b10) begin
+        if (d_channel_ready & d_channel_valid) 
+            fake_ready_next_state = 2'b11;
+        else fake_ready_next_state = fake_ready_state;
+    end
+    else if (fake_ready_state == 2'b11) 
+        fake_ready_next_state = 2'b00;
+    else 
+        fake_ready_next_state = fake_ready_state;
+end
+
+assign d_channel_ready = (fake_ready_state == 2'b10) ? 1'b1 : 1'b0;
+
+//assign d_channel_ready = 1;
+
 
 
 initial begin
 $display("simulation start");
 input_array[0] <= BASE_4B;
-input_array[1] <= 8'b0111_1110;
-input_array[2] <= 8'b0110_0000;
-input_array[3] <= BASE_8B;
+input_array[1] <= 8'b0111_1110;;
+input_array[2] <= BASE_4B;
+input_array[3] <= 8'b0111_1111;
 $display("input array initialize complete");
 rst <= 0;
 @(negedge clk) rst <= 1;
+fifo_has_packet <= 1;
 @(negedge clk) rst <= 1;
 @(negedge clk) rst <= 0;
+/*
+repeat(6) @(posedge clk);
+@(posedge clk) fifo_has_packet <= 0;
+
+repeat(5) @(posedge clk);
+@(posedge clk)fifo_has_packet <= 1;
+
+repeat(6) @(posedge clk);
+@(posedge clk) fifo_has_packet <= 0;
+
+repeat(5) @(posedge clk);
+@(posedge clk)fifo_has_packet <= 1;
+
+*/
+
 end
 
 

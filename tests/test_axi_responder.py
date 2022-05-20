@@ -3,6 +3,7 @@ import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import Timer
 from cocotb_bus.drivers.amba import AXI4LiteMaster, AXIProtocolError
+from cocotb.binary import BinaryValue
 
 CLK_PERIOD_NS = 10
 
@@ -95,16 +96,23 @@ async def write_and_read(dut):
     # Reset
     dut.rst <= 1
     dut.test_id <= 2
+    #strb = dut.AXIML_WSTRB
     axim = AXI4LiteMaster(dut, "AXIML", dut.clk)
     setup_dut(dut)
     await Timer(CLK_PERIOD_NS * 10, units='ns')
     dut.rst <= 0
 
     ADDRESS = 0x00
-    DATA = 0xAB
+    DATA = 0xABCDABCDBEEFBEEF # 8 BYTES
+    WSTRB_ = "11111110"
+    #DATA = BinaryValue(DATA_).buff
+    WSTRB = BinaryValue(WSTRB_).buff
+    #DATA = BinaryValue(DATA).buff
+    #dut._log.info ("0x%08X" % DATA_)
 
     # Write to the register
-    await axim.write(ADDRESS, DATA)
+    await axim.write(ADDRESS, DATA, WSTRB)
+    #TRUE_DATA = axim.write(ADDRESS, DATA, WSTRB)
     await Timer(CLK_PERIOD_NS * 10, units='ns')
 
     # Read back the value
@@ -115,6 +123,7 @@ async def write_and_read(dut):
     assert value == DATA, ("Register at address 0x%08X should have been "
                            "0x%08X but was 0x%08X" % (ADDRESS, DATA, int(value)))
     dut._log.info("Write 0x%08X to address 0x%08X" % (int(value), ADDRESS))
+    #dut._log.info("failed data we write is 0x%08X" % (TRUE_DATA))
 
 
 # @cocotb.test()
