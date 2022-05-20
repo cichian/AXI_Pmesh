@@ -120,6 +120,13 @@ wire                                    araddr_fifo_empty;
 wire [`C_M_AXI_LITE_ADDR_WIDTH-1:0]     araddr_fifo_out;
 reg                                     araddr_fifo_ren;
 
+wire [AXI_LITE_DATA_WIDTH/8 - 1: 0]     wstrb_fifo_out;
+wire [AXI_LITE_DATA_WIDTH/8 - 1: 0]     wstrb_fifo_wdata; 
+wire wstrb_fifo_full;
+wire wstrb_fifo_empty;
+wire wstrb_fifo_ren;
+wire wstrb_fifo_wval;
+
 
 /* Dump store addr and data to file. */
 integer file;
@@ -302,20 +309,7 @@ assign wdata_fifo_ren = (noc_store_done && !wdata_fifo_empty);
 
 /****************/ 
 // declaration for strobe to mask conversion 
-
-// FIFO IO
-wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] wstrb_fifo_out;
-wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] fifo_out_mux;
-wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] wstrb_fifo_wdata; 
-
-wire wstrb_fifo_full;
-wire wstrb_fifo_empty;
-
-wire wstrb_fifo_ren;
-wire wstrb_fifo_wval;
-
 // control intreface signal
-//wire [7:0] pmesh_mask;
 wire [2:0] pmesh_data_size;
 wire [5:0] pmesh_addr;
 
@@ -330,14 +324,7 @@ wire wstrb_fifoside_ready;
 wire wstrb_outputside_valid;
 wire wstrb_outputside_ready;
 
-localparam IDLE = 0;
-localparam VALID = 1;
-localparam WAIT = 2;
-
-reg [1:0] fifo_valid_state;
-reg [1:0] fifo_valid_next_state; 
-
-
+wire [AXI_LITE_DATA_WIDTH/8 - 1: 0] fifo_out_mux;
 strb2mask strb2mask_ins (
     .clk (clk),
     .rst (rst),
@@ -349,9 +336,7 @@ strb2mask strb2mask_ins (
     .d_channel_ready(wstrb_outputside_ready), 
     .d_channel_valid(wstrb_outputside_valid)
 );
-
 assign fifo_out_mux = (wstrb_fifo_empty) ? 8'b1111_1111 : wstrb_fifo_out;
-
 
 sync_fifo #(
 	.DSIZE(AXI_LITE_DATA_WIDTH/8),
@@ -367,17 +352,18 @@ sync_fifo #(
 	.wval(wstrb_fifo_wval),
 	.reset(rst)
 );
-
-
 assign wstrb_fifo_ren = (noc_store_done && !wstrb_fifo_empty);
 assign wstrb_fifo_wval = m_axi_wvalid && m_axi_wready;
 assign wstrb_fifo_wdata = m_axi_wstrb;
-
 assign wstrb_outputside_ready = (flit_state == 3'd1) && (type_fifo_out == `MSG_TYPE_STORE);
 
 
 
-
+reg [1:0] fifo_valid_state;
+reg [1:0] fifo_valid_next_state; 
+localparam IDLE = 0;
+localparam VALID = 1;
+localparam WAIT = 2;
 
 //valid state machine 
 always@ (posedge clk) begin
@@ -440,7 +426,7 @@ assign araddr_fifo_ren = (noc_load_done && !araddr_fifo_empty);
 `define MIN_NOC_DATA_WIDTH      64 // 8 Bytes
 `define NOC_HDR_LEN             3
 `define MSG_STATE_IDLE          3'd0
-`define MSG_STATE_WAIT_STRB     3'd1
+`define MSG_STATE_WAIT_STRB     3'd1 // new state for converting strobe 
 `define MSG_STATE_HEADER        3'd2
 `define MSG_STATE_NOC_DATA      3'd3
 
