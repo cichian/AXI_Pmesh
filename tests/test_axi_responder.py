@@ -4,6 +4,7 @@ from cocotb.clock import Clock
 from cocotb.triggers import Timer
 from cocotb_bus.drivers.amba import AXI4LiteMaster, AXIProtocolError
 from byte_enable import *
+from cocotb.types import LogicArray
 
 CLK_PERIOD_NS = 10
 
@@ -94,32 +95,35 @@ async def write_and_read(dut):
     """
 
     # Reset
-    dut.rst <= 1
-    dut.test_id <= 2
+    dut.rst.value = 1
+    dut.test_id.value = 2
     #strb = dut.AXIML_WSTRB
     axim = AXI4LiteMaster(dut, "AXIML", dut.clk)
     setup_dut(dut)
     await Timer(CLK_PERIOD_NS * 10, units='ns')
-    dut.rst <= 0
+    dut.rst.value = 0
 
-    ADDRESS = 0x00
-    DATA = 0xABCDABCDBEEFBEEF # 8 BYTES
-    WSTRB = 0b0011_1000
-    GOLD = byte_enable(DATA, WSTRB)
+    ADDRESS = 0x0000_0000_0000_0000
+    DATA = 0xEF # 8 BYTES
+    WSTRB = 0b1111_1111
     
 
+    dut._log.info("Write 0x%08X to address 0x%08X with strobe 0x%02X " % (DATA, ADDRESS, WSTRB))
+    
     # Write to the register
     await axim.write(ADDRESS, DATA, WSTRB)
     await Timer(CLK_PERIOD_NS * 10, units='ns')
-
+    dut._log.info("%d" % (axim.bus.WSTRB))
     # Read back the value
     value = await axim.read(ADDRESS)
+    #value = await axim.read_qwords(ADDRESS)
     await Timer(CLK_PERIOD_NS * 10, units='ns')
-
+    GOLD = byte_enable(ADDRESS, axim.bus.WDATA ,axim.bus.WSTRB)
     # value = dut.dut.r_temp_0
+    dut._log.info("Write 0x%08X to address 0x%08X" % (value, ADDRESS))
     assert value == GOLD, ("Register at address 0x%08X should have been "
-                           "0x%08X but was 0x%08X" % (ADDRESS, GOLD, int(value)))
-    dut._log.info("Write 0x%08X to address 0x%08X" % (int(value), ADDRESS))
+                           "0x%08X but was 0x%08X" % (ADDRESS, GOLD, value))
+    
 
 
 # @cocotb.test()

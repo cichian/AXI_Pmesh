@@ -478,7 +478,7 @@ begin
             msg_length = 2'd2 + NOC_PAYLOAD_LEN; // 2 extra headers + 1 data
             msg_data_size = buf_pmesh_data_size; // fix it for now
             //msg_data_size = 3'b001;
-            msg_address = {{`MSG_ADDR_WIDTH-`PHY_ADDR_WIDTH{1'b0}}, awaddr_fifo_out[`PHY_ADDR_WIDTH-1:6],buf_pmesh_addr};
+            msg_address = {{`MSG_ADDR_WIDTH-`PHY_ADDR_WIDTH{1'b0}}, awaddr_fifo_out[`PHY_ADDR_WIDTH-1:3], buf_pmesh_addr[2:0]};
         end
 
         `MSG_TYPE_LOAD: begin
