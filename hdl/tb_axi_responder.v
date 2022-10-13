@@ -14,12 +14,16 @@ input                               rst,
 input                               AXIML_AWVALID,
 input       [ADDR_WIDTH - 1: 0]     AXIML_AWADDR,
 output                              AXIML_AWREADY,
+input       [1:0]                   AXIML_AWBURST,
+input       [7:0]                   AXIML_AWLEN,
+input       [2:0]                   AXIML_AWSIZE,
 
 //Write Data Channel
 input                               AXIML_WVALID,
 output                              AXIML_WREADY,
 input       [STROBE_WIDTH - 1:0]    AXIML_WSTRB,
 input       [DATA_WIDTH - 1: 0]     AXIML_WDATA,
+
 
 //Write Response Channel
 output                              AXIML_BVALID,
@@ -30,12 +34,17 @@ output      [1:0]                   AXIML_BRESP,
 input                               AXIML_ARVALID,
 output                              AXIML_ARREADY,
 input       [ADDR_WIDTH - 1: 0]     AXIML_ARADDR,
+input       [1:0]                  AXIML_ARBURST,
+input      [7:0]                   AXIML_ARLEN,
+input       [2:0]                  AXIML_ARSIZE,
 
 //Read Data Channel
 output                              AXIML_RVALID,
 input                               AXIML_RREADY,
 output      [1:0]                   AXIML_RRESP,
-output      [DATA_WIDTH - 1: 0]     AXIML_RDATA
+output      [DATA_WIDTH - 1: 0]     AXIML_RDATA,
+output                              AXIML_RLAST
+
 
 );
 
@@ -129,6 +138,7 @@ fake_mem_ctrl fake_mem_ctrl (
   .noc_data_out     (mem_bridge_dat),
   .noc_ready_out    (mem_bridge_rdy)
 );
+assign AXIML_RLAST = AXIML_RVALID & AXIML_RREADY;
 
 //asynchronus logic
 //synchronous logic
